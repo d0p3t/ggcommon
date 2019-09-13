@@ -74,7 +74,8 @@ AddEventHandler(
     if
       reason ~= "Disconnected." and reason ~= "Reconnecting" and reason ~= "Quit." and reason ~= "Exiting" and
         reason ~= "Connecting to another server." and
-        reason ~= "Timed out after 60 seconds."
+        reason ~= "Timed out after 60 seconds." and
+        string.find(reason, "banned") == nil
      then
       Log("Game Crash by " .. name, reason, true)
     end
