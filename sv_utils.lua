@@ -34,7 +34,7 @@ function Log(title, message, toDiscord)
           ["title"] = title,
           ["description"] = message,
           ["footer"] = {
-            text =   "Server #" .. Config.ServerNumber .. " • Sent " .. time .. ""
+            text = "Server #" .. Config.ServerNumber .. " • Sent " .. time .. ""
           }
         }
       }
@@ -66,10 +66,17 @@ function PrintLog(message, color)
   print(color .. "[" .. time .. "] " .. message .. "^7")
 end
 
-AddEventHandler("playerDropped", function(reason)
-  local _source = source
-  local name =  GetPlayerName(_source)
-  if reason ~= "Disconnected." and reason ~= "Reconnecting." and reason ~= "Quit." and reason ~= "Exiting" then
-    Log("Game Crash by " .. name, reason, true)  
+AddEventHandler(
+  "playerDropped",
+  function(reason)
+    local _source = source
+    local name = GetPlayerName(_source)
+    if
+      reason ~= "Disconnected." and reason ~= "Reconnecting" and reason ~= "Quit." and reason ~= "Exiting" and
+        reason ~= "Connecting to another server." and
+        reason ~= "Timed out after 60 seconds."
+     then
+      Log("Game Crash by " .. name, reason, true)
+    end
   end
-end)
+)
