@@ -65,3 +65,11 @@ function PrintLog(message, color)
   end
   print(color .. "[" .. time .. "] " .. message .. "^7")
 end
+
+AddEventHandler("playerDropped", function(reason)
+  local _source = source
+  local name =  GetPlayerName(_source)
+  if reason ~= "Disconnected." and reason ~= "Reconnecting." and reason ~= "Quit." and reason ~= "Exiting" then
+    Log("Game Crash by " .. name, reason, true)  
+  end
+end)

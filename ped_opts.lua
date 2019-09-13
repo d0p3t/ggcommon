@@ -6,7 +6,8 @@ AddEventHandler(
     "playerSpawned",
     function()
         NetworkSetFriendlyFireOption(true)
-        SetCanAttackFriendly(LocalPlayerId, true, true)
+        SetCanAttackFriendly(PlayerPedId(), true, true)
+        NetworkSetTalkerProximity(20.0)
 
         if (FirstSpawn) then
             SetGarbageTrucks(false)
