@@ -16,8 +16,11 @@ AddEventHandler(
                 break
             end
         end
-
+		
         local name = "screenshots/ss-" .. license .. "-" .. os.time(os.date("!*t")) .. ".jpg"
+		
+		Log("Screenshot", "**Attempting Screenshot**\n**Player:** " .. license .. "\n**Filepath:** " .. name .. "", true)
+				
         exports["screenshot-basic"]:requestClientScreenshot(
             player,
             {fileName = name},
