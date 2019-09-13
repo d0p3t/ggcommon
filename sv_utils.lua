@@ -1,4 +1,4 @@
-local AvatarUrl = "https://pbs.twimg.com/profile_images/847824193899167744/J1Teh4Di_400x400.jpg" -- Replace this at some point
+local AvatarUrl = "https://i.imgur.com/wwB6LyY.jpg"
 
 Config = {
   IsConfigured = false
