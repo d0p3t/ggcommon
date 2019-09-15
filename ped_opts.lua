@@ -13,7 +13,7 @@ AddEventHandler(
             SetGarbageTrucks(false)
             SetRandomBoats(false)
 
-            for service=1, 15 do
+            for service = 1, 15 do
                 EnableDispatchService(service, false)
             end
 
@@ -27,7 +27,7 @@ AddEventHandler(
 Citizen.CreateThread(
     function()
         while true do
-            Citizen.Wait(5)
+            Citizen.Wait(0)
             SetPedDensityMultiplierThisFrame(0.0)
             SetScenarioPedDensityMultiplierThisFrame(0.0, 0.0)
             SetVehicleDensityMultiplierThisFrame(0.0)
@@ -44,22 +44,26 @@ Citizen.CreateThread(
     end
 )
 
-Citizen.CreateThread(function()
-    while true do
-        LocalPedId = PlayerPedId()
-        LocalPlayerId = PlayerId()
-        local _, hash = GetCurrentPedWeapon(LocalPedId, true)
-        SetPedInfiniteAmmo(LocalPedId, true, hash)
-        Citizen.Wait(1000)
+Citizen.CreateThread(
+    function()
+        while true do
+            LocalPedId = PlayerPedId()
+            LocalPlayerId = PlayerId()
+            local _, hash = GetCurrentPedWeapon(LocalPedId, true)
+            SetPedInfiniteAmmo(LocalPedId, true, hash)
+            Citizen.Wait(1000)
+        end
     end
-end)
+)
 
-Citizen.CreateThread(function()
-    while true do
-        HideHudComponentThisFrame(6)
-        HideHudComponentThisFrame(7)
-        HideHudComponentThisFrame(8)
-        HideHudComponentThisFrame(9)
-        Citizen.Wait(0)
+Citizen.CreateThread(
+    function()
+        while true do
+            HideHudComponentThisFrame(6)
+            HideHudComponentThisFrame(7)
+            HideHudComponentThisFrame(8)
+            HideHudComponentThisFrame(9)
+            Citizen.Wait(0)
+        end
     end
-end)
+)
