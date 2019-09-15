@@ -26,6 +26,16 @@ AddEventHandler(
 
 Citizen.CreateThread(
     function()
+        Citizen.Wait(2000)
+        TriggerEvent(
+            "chat:addSuggestion",
+            "/report",
+            "Report another player",
+            {
+                {name = "ID", help = "Player ID (Press + Hold Z for scoreboard)"},
+                {name = "Reason", help = "Reason for report (e.g. Godmode or screaming)"}
+            }
+        )
         while true do
             Citizen.Wait(0)
             SetPedDensityMultiplierThisFrame(0.0)
