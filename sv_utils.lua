@@ -76,7 +76,7 @@ function Screenshot(player)
 
   for k, v in pairs(identifiers) do
     if string.sub(v, 1, string.len("license:")) == "license:" then
-      license = string.sub(v, string.len("license:") + 1)
+      license = v
       break
     end
   end
@@ -96,11 +96,28 @@ function Screenshot(player)
         )
       else
         print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
-        Log("Screenshot", "**Status:** Saved \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "", true)
+        Log(
+          "Screenshot",
+          "**Status:** Saved \n**Player:** " ..
+            license .. "\n**Filepath:** " .. name .. "\n**URL:** https://gungame.store/screenshots/" .. name .. "",
+          true
+        )
       end
     end
   )
 end
+
+RegisterCommand(
+  "requestss",
+  function(source, args, raw)
+    if (args[1] == nil) then
+      return
+    end
+
+    Screenshot(args[1])
+  end,
+  true
+)
 
 AddEventHandler(
   "playerDropped",

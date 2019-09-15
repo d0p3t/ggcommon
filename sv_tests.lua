@@ -84,7 +84,12 @@ RegisterCommand(
                     print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
                     Log(
                         "Screenshot",
-                        "**Status:** Saved \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "",
+                        "**Status:** Saved \n**Player:** " ..
+                            license ..
+                                "\n**Filepath:** " ..
+                                    name ..
+                                        "\n**Filepath:** " ..
+                                            name .. "\n**URL:** https://gungame.store/screenshots/" .. name .. "",
                         true
                     )
                 end
