@@ -66,6 +66,31 @@ RegisterCommand(
             end
         end
 
+        local name = "screenshots/ss-" .. license .. "-" .. os.time(os.date("!*t")) .. ".jpg"
+
+        exports["screenshot-basic"]:requestClientScreenshot(
+            reporting,
+            {fileName = name},
+            function(err, data)
+                if err ~= false then
+                    print("err", err)
+                    Log(
+                        "Screenshot",
+                        "**Status:** Error \n**Player:** " ..
+                            license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
+                        true
+                    )
+                else
+                    print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
+                    Log(
+                        "Screenshot",
+                        "**Status:** Saved \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "",
+                        true
+                    )
+                end
+            end
+        )
+
         Log(
             "Player Report",
             "**Reported by:** " ..
