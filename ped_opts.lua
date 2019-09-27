@@ -2,8 +2,9 @@ local FirstSpawn = true
 local LocalPedId = 0
 local LocalPlayerId = 0
 
+RegisterNetEvent("spawn")
 AddEventHandler(
-    "playerSpawned",
+    "spawn",
     function()
         NetworkSetFriendlyFireOption(true)
         SetCanAttackFriendly(PlayerPedId(), true, true)
@@ -44,15 +45,15 @@ Citizen.CreateThread(
     end
 )
 
-Citizen.CreateThread(function()
-    while true do
-        LocalPedId = PlayerPedId()
-        LocalPlayerId = PlayerId()
-        local _, hash = GetCurrentPedWeapon(LocalPedId, true)
-        SetPedInfiniteAmmo(LocalPedId, true, hash)
-        Citizen.Wait(1000)
-    end
-end)
+-- Citizen.CreateThread(function()
+--     while true do
+--         LocalPedId = PlayerPedId()
+--         LocalPlayerId = PlayerId()
+--         local _, hash = GetCurrentPedWeapon(LocalPedId, true)
+--         SetPedInfiniteAmmo(LocalPedId, true, hash)
+--         Citizen.Wait(1000)
+--     end
+-- end)
 
 Citizen.CreateThread(function()
     while true do

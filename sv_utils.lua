@@ -20,7 +20,7 @@ Citizen.CreateThread(
 
 function Log(title, message, toDiscord)
   if (toDiscord == true) then
-    if (Config.IsConfigured == false) then
+    if (Config.IsConfigured == false or Config.ServerNumber == "DEV") then
       return
     else
       local time = os.date("%d/%m/%Y %H:%M:%S")
