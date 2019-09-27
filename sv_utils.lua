@@ -66,6 +66,59 @@ function PrintLog(message, color)
   print(color .. "[" .. time .. "] " .. message .. "^7")
 end
 
+function Screenshot(player)
+  if (player == 0 or player == nil) then
+    return
+  end
+
+  local identifiers = GetPlayerIdentifiers(player)
+  local license = 0
+
+  for k, v in pairs(identifiers) do
+    if string.sub(v, 1, string.len("license:")) == "license:" then
+      license = v
+      break
+    end
+  end
+
+  local name = "screenshots/ss-" .. license .. "-" .. os.time(os.date("!*t")) .. ".jpg"
+
+  exports["screenshot-basic"]:requestClientScreenshot(
+    player,
+    {fileName = name},
+    function(err, data)
+      if err ~= false then
+        print("err", err)
+        Log(
+          "Screenshot",
+          "**Status:** Error \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
+          true
+        )
+      else
+        print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
+        Log(
+          "Screenshot",
+          "**Status:** Saved \n**Player:** " ..
+            license .. "\n**Filepath:** " .. name .. "\n**URL:** https://gungame.store/screenshots/" .. name .. "",
+          true
+        )
+      end
+    end
+  )
+end
+
+RegisterCommand(
+  "requestss",
+  function(source, args, raw)
+    if (args[1] == nil) then
+      return
+    end
+
+    Screenshot(args[1])
+  end,
+  true
+)
+
 AddEventHandler(
   "playerDropped",
   function(reason)
