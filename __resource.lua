@@ -13,7 +13,7 @@ client_scripts {
 
 server_scripts {
     "sv_ss.lua",
-    "sv_tests.lua",
+    "sv_cmds.lua",
     "sv_utils.lua"
 }
 

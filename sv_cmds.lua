@@ -1,15 +1,3 @@
-AddEventHandler(
-    "onServerResourceStart",
-    function(resourceName)
-        if (GetCurrentResourceName() ~= resourceName) then
-            return
-        end
-
-        -- TriggerEvent("ggcommon:ss", GetPlayers()[1])
-        -- Log("Test title", "Test message")
-    end
-)
-
 RegisterCommand(
     "report",
     function(source, args, raw)
@@ -124,4 +112,63 @@ RegisterCommand(
         )
     end,
     false
+)
+
+RegisterCommand(
+    "ban",
+    function(source, args, raw)
+        local _source = source
+        if (args[2] == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent(
+                    "chat:addMessage",
+                    _source,
+                    {args = {"BAN", "Did not specify netId and/or amount of days"}, color = {255, 0, 0}}
+                )
+            else
+                print("[BAN COMMAND] Did not specify netId and/or amount of days.")
+            end
+            CancelEvent()
+            return
+        end
+
+        local netId = args[1]
+        local amountOfHours = tonumber(args[2])
+
+        if (netId == nil or amountOfHours == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent("chat:addMessage", _source, {args = {"BAN", "Invalid input."}, color = {255, 0, 0}})
+            else
+                print("[BAN COMMAND] Invalid input.")
+            end
+            CancelEvent()
+            return
+        end
+
+        local playerName = GetPlayerName(netId)
+
+        if (playerName == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent(
+                    "chat:addMessage",
+                    _source,
+                    {args = {"BAN", "Did not find player with netId " .. netId .. "."}, color = {255, 0, 0}}
+                )
+            else
+                print("[BAN COMMAND] Did not find player with netId " .. netId .. ".")
+            end
+            CancelEvent()
+            return
+        end
+
+        local index = 3
+        local reason = ""
+        while args[index] ~= nil do
+            reason = reason .. args[index] .. " "
+            index = index + 1
+        end
+
+        TriggerEvent("ggac:banMe", amountOfHours, reason, netId)
+    end,
+    true
 )
