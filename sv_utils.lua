@@ -47,9 +47,9 @@ function Log(title, message, toDiscord)
         {["Content-Type"] = "application/json"}
       )
     end
+  else
+    PrintLog("" .. title .. " " .. message)
   end
-
-  PrintLog("" .. title .. " " .. message)
 end
 
 function PrintLog(message, color)
