@@ -36,6 +36,7 @@ Citizen.CreateThread(function()
 
   if(Config.SentryPub == "0" or Config.SentryPriv == "0" or Config.SentryId == "0") then
     PrintLog("[Common] Sentry not configured correctly. Please check ConVars.")
+  else
     Config.SentryEnabled = true
   end
 end)
