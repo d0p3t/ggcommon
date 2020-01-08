@@ -125,7 +125,8 @@ AddEventHandler(
         string.find(reason, "banned") == nil and
         string.find(reason, "kicked") == nil and
         string.find(reason, "Could not connect to session provider.") == nil and
-        string.find(reason, "DLC count mismatch") == nil
+        string.find(reason, "DLC count mismatch") == nil and
+        string.find(reason, "Failed to connect") == nil
      then
       SentryIssue("gamecrash", reason, "warning", {}, _source)
     end
