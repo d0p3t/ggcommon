@@ -2,22 +2,8 @@
 -- Sentry Issue Tracker
 --
 ---
-
-local hextable = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "a", "b", "c", "d", "e", "f"}
-
-local function RandomHex(length)
-  local s = ""
-  for i = 1, length do
-    math.randomseed(os.clock() ^ 5)
-    s = s .. hextable[math.random(1, 16)]
-  end
-  return s
-end
-
-local function GenerateUUID()
-  return string.format("%s6%s2%s%s", RandomHex(10), RandomHex(5), RandomHex(2), RandomHex(13))
-end
-
+-- Based on sentryio-fivem and gmod-sentry
+---
 local function ISODate(time)
   return os.date("!%Y-%m-%dT%H:%M:%S", time)
 end
@@ -108,7 +94,7 @@ function SentryIssue(errorType, error, level, tags, source)
   end
 
   local data = {
-    ["event_id"] = GenerateUUID(),
+    ["event_id"] = uuid(),
     ["timestamp"] = ISODate(os.time()),
     ["logger"] = "sentry",
     ["platform"] = "other",
