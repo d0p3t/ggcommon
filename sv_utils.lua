@@ -126,7 +126,7 @@ AddEventHandler(
         string.find(reason, "kicked") == nil and
         string.find(reason, "Could not connect to session provider.") == nil
      then
-      Log("Game Crash by " .. name, reason, true)
+      SentryIssue("gamecrash", reason, "warning", { }, _source)
     end
   end
 )
