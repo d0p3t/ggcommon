@@ -1,9 +1,5 @@
 local AvatarUrl = "https://i.imgur.com/wwB6LyY.jpg"
 
-Config = {
-  IsConfigured = false
-}
-
 Citizen.CreateThread(
   function()
     Config.WebhookUrl = GetConvar("gg_discord_webhook", "false")
@@ -127,7 +123,8 @@ AddEventHandler(
         reason ~= "Connecting to another server." and
         reason ~= "Timed out after 60 seconds." and
         string.find(reason, "banned") == nil and
-        string.find(reason, "kicked") == nil
+        string.find(reason, "kicked") == nil and
+        string.find(reason, "Could not connect to session provider.") == nil
      then
       Log("Game Crash by " .. name, reason, true)
     end

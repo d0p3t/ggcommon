@@ -19,3 +19,4 @@ server_scripts {
 
 server_export "Log"
 server_export "Screenshot"
+server_export "SentryIssue"
