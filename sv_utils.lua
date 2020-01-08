@@ -124,9 +124,10 @@ AddEventHandler(
         reason ~= "Timed out after 60 seconds." and
         string.find(reason, "banned") == nil and
         string.find(reason, "kicked") == nil and
-        string.find(reason, "Could not connect to session provider.") == nil
+        string.find(reason, "Could not connect to session provider.") == nil and
+        string.find(reason, "DLC count mismatch") == nil
      then
-      SentryIssue("gamecrash", reason, "warning", { }, _source)
+      SentryIssue("gamecrash", reason, "warning", {}, _source)
     end
   end
 )
