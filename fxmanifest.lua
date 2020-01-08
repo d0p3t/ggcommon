@@ -17,7 +17,9 @@ client_scripts {
 server_scripts {
     "sv_ss.lua",
     "sv_cmds.lua",
-    "sv_utils.lua"
+    "sv_utils.lua",
+	"sv_config.lua",
+	"sv_sentry.lua"
 }
 
 server_export "Log"

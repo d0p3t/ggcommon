@@ -22,6 +22,55 @@ local function ISODate(time)
   return os.date("!%Y-%m-%dT%H:%M:%S", time)
 end
 
+local function getContexts()
+  return {
+    os = {
+      name = Config.SentryOS
+    },
+    runtime = {
+      name = "FXServer",
+      version = Config.SentryVersion
+    }
+  }
+end
+
+local function getUserContext(source)
+  if source == 0 or source == nil then
+    return nil
+  end
+
+  local name = GetPlayerName(source)
+  local endpoint = GetPlayerEndpoint(source)
+  local identifiers = GetPlayerIdentifiers(source)
+  local license = 0
+
+  for k, v in pairs(identifiers) do
+    if string.sub(v, 1, string.len("license:")) == "license:" then
+      license = v
+      break
+    end
+  end
+
+  return {
+    id = license,
+    username = name,
+    ip_address = endpoint
+  }
+end
+
+local function sentryAuthHeader()
+  return "Sentry sentry_version=7,sentry_timestamp=" ..
+    os.time() ..
+      ",sentry_key=" .. Config.SentryPub .. ",sentry_secret=" .. Config.SentryPriv .. ",sentry_client=ggcommon/1.0"
+end
+
+local function getSDKData()
+  return {
+    ["name"] = "GGCommon.Sentry",
+    ["version"] = "0.0.1"
+  }
+end
+
 --
 -- Setup Sentry
 --
@@ -94,53 +143,4 @@ function SentryIssue(errorType, error, level, tags, source)
     json.encode(data),
     headers
   )
-end
-
-local function getContexts()
-  return {
-    os = {
-      name = Config.SentryOS
-    },
-    runtime = {
-      name = "FXServer",
-      version = Config.SentryVersion
-    }
-  }
-end
-
-local function getUserContext(source)
-  if source == 0 or source == nil then
-    return nil
-  end
-
-  local name = GetPlayerName(source)
-  local endpoint = GetPlayerEndpoint(source)
-  local identifiers = GetPlayerIdentifiers(source)
-  local license = 0
-
-  for k, v in pairs(identifiers) do
-    if string.sub(v, 1, string.len("license:")) == "license:" then
-      license = v
-      break
-    end
-  end
-
-  return {
-    id = license,
-    username = name,
-    ip_address = endpoint
-  }
-end
-
-local function sentryAuthHeader()
-  return "Sentry sentry_version=7,sentry_timestamp=" ..
-    os.time() ..
-      ",sentry_key=" .. Config.SentryPub .. ",sentry_secret=" .. Config.SentryPriv .. ",sentry_client=ggcommon/1.0"
-end
-
-local function getSDKData()
-  return {
-    ["name"] = "GGCommon.Sentry",
-    ["version"] = "0.0.1"
-  }
 end
