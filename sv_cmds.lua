@@ -1,21 +1,11 @@
-AddEventHandler(
-    "onServerResourceStart",
-    function(resourceName)
-        if (GetCurrentResourceName() ~= resourceName) then
-            return
-        end
-
-        -- TriggerEvent("ggcommon:ss", GetPlayers()[1])
-        -- Log("Test title", "Test message")
-    end
-)
+local lastReport = GetGameTimer()
 
 RegisterCommand(
     "report",
     function(source, args, raw)
         local _source = source
 
-        if (_source == 0 or args[1] == nil) then
+        if (_source == 0 or args[1] == nil or GetGameTimer() - lastReport < 60000) then
             CancelEvent()
             return
         end
@@ -66,35 +56,7 @@ RegisterCommand(
             end
         end
 
-        local name = "screenshots/ss-" .. license .. "-" .. os.time(os.date("!*t")) .. ".jpg"
-
-        exports["screenshot-basic"]:requestClientScreenshot(
-            reporting,
-            {fileName = name},
-            function(err, data)
-                if err ~= false then
-                    print("err", err)
-                    Log(
-                        "Screenshot",
-                        "**Status:** Error \n**Player:** " ..
-                            license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
-                        true
-                    )
-                else
-                    print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
-                    Log(
-                        "Screenshot",
-                        "**Status:** Saved \n**Player:** " ..
-                            license ..
-                                "\n**Filepath:** " ..
-                                    name ..
-                                        "\n**Filepath:** " ..
-                                            name .. "\n**URL:** https://gungame.store/screenshots/" .. name .. "",
-                        true
-                    )
-                end
-            end
-        )
+        Screenshot(reporting)
 
         Log(
             "Player Report",
@@ -122,6 +84,67 @@ RegisterCommand(
             _source,
             {args = {"REPORT", "Staff will handle your report."}, color = {255, 0, 0}}
         )
+
+        lastReport = GetGameTimer()
     end,
     false
+)
+
+RegisterCommand(
+    "ban",
+    function(source, args, raw)
+        local _source = source
+        if (args[2] == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent(
+                    "chat:addMessage",
+                    _source,
+                    {args = {"BAN", "Did not specify netId and/or amount of days"}, color = {255, 0, 0}}
+                )
+            else
+                print("[BAN COMMAND] Did not specify netId and/or amount of days.")
+            end
+            CancelEvent()
+            return
+        end
+
+        local netId = args[1]
+        local amountOfHours = tonumber(args[2])
+
+        if (netId == nil or amountOfHours == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent("chat:addMessage", _source, {args = {"BAN", "Invalid input."}, color = {255, 0, 0}})
+            else
+                print("[BAN COMMAND] Invalid input.")
+            end
+            CancelEvent()
+            return
+        end
+
+        local playerName = GetPlayerName(netId)
+
+        if (playerName == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent(
+                    "chat:addMessage",
+                    _source,
+                    {args = {"BAN", "Did not find player with netId " .. netId .. "."}, color = {255, 0, 0}}
+                )
+            else
+                print("[BAN COMMAND] Did not find player with netId " .. netId .. ".")
+            end
+            CancelEvent()
+            return
+        end
+
+        local index = 3
+        local reason = ""
+        while args[index] ~= nil do
+            reason = reason .. args[index] .. " "
+            index = index + 1
+        end
+
+        TriggerEvent("ggac:banMe", amountOfHours, reason, netId)
+    end,
+    true
 )

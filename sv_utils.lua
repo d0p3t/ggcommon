@@ -1,9 +1,5 @@
 local AvatarUrl = "https://i.imgur.com/wwB6LyY.jpg"
 
-Config = {
-  IsConfigured = false
-}
-
 Citizen.CreateThread(
   function()
     Config.WebhookUrl = GetConvar("gg_discord_webhook", "false")
@@ -47,9 +43,9 @@ function Log(title, message, toDiscord)
         {["Content-Type"] = "application/json"}
       )
     end
+  else
+    PrintLog("" .. title .. " " .. message)
   end
-
-  PrintLog("" .. title .. " " .. message)
 end
 
 function PrintLog(message, color)
@@ -88,14 +84,12 @@ function Screenshot(player)
     {fileName = name},
     function(err, data)
       if err ~= false then
-        print("err", err)
         Log(
           "Screenshot",
           "**Status:** Error \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
           true
         )
       else
-        print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
         Log(
           "Screenshot",
           "**Status:** Saved \n**Player:** " ..
@@ -128,9 +122,13 @@ AddEventHandler(
       reason ~= "Disconnected." and reason ~= "Reconnecting" and reason ~= "Quit." and reason ~= "Exiting" and
         reason ~= "Connecting to another server." and
         reason ~= "Timed out after 60 seconds." and
-        string.find(reason, "banned") == nil
+        string.find(reason, "banned") == nil and
+        string.find(reason, "kicked") == nil and
+        string.find(reason, "Could not connect to session provider.") == nil and
+        string.find(reason, "DLC count mismatch") == nil and
+        string.find(reason, "Failed to connect") == nil
      then
-      Log("Game Crash by " .. name, reason, true)
+      SentryIssue("gamecrash", reason, "warning", {}, _source)
     end
   end
 )
