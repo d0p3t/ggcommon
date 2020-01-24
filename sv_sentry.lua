@@ -11,7 +11,8 @@ end
 local function getContexts()
   return {
     os = {
-      name = Config.SentryOS
+      name = Config.SentryOS,
+      version = Config.SentryOSVersion
     },
     runtime = {
       name = "FXServer",
@@ -69,6 +70,8 @@ Citizen.CreateThread(
     Config.SentryEndpoint = GetConvar("sentry_ip", "127.0.0.1:30120")
     Config.SentryVersion = GetConvar("sentry_version", "v0000")
     Config.SentryOS = GetConvar("sentry_os", "Windows")
+    Config.SentryOSVersion = GetConvar("sentry_os_version", "Unknown")
+    Config.SentryRelease = GetConvar("sentry_release", "1.0.0")
 
     if (Config.SentryPub == "0" or Config.SentryPriv == "0" or Config.SentryId == "0") then
       PrintLog("[Common] Sentry not configured correctly. Please check ConVars.")
@@ -106,7 +109,7 @@ function SentryIssue(errorType, error, level, tags, source)
     ["user"] = getUserContext(source),
     ["contexts"] = getContexts(),
     ["tags"] = tags,
-    ["release"] = "v1",
+    ["release"] = Config.SentryRelease,
     ["environment"] = "production",
     ["level"] = level,
     ["server_name"] = Config.SentryEndpoint
