@@ -56,7 +56,7 @@ RegisterCommand(
             end
         end
 
-        Screenshot(reporting)
+        -- Screenshot(reporting)
 
         Log(
             "Player Report",
