@@ -7,8 +7,8 @@ AddEventHandler(
     "spawn",
     function()
         NetworkSetFriendlyFireOption(true)
-        SetCanAttackFriendly(PlayerPedId(), true, true)
-        NetworkSetTalkerProximity(20.0)
+        SetCanAttackFriendly(LocalPedId, true, true)
+        NetworkSetTalkerProximity(30.0)
 
         if (FirstSpawn) then
             SetGarbageTrucks(false)
@@ -55,25 +55,16 @@ Citizen.CreateThread(
     end
 )
 
--- Citizen.CreateThread(function()
---     while true do
---         LocalPedId = PlayerPedId()
---         LocalPlayerId = PlayerId()
---         local _, hash = GetCurrentPedWeapon(LocalPedId, true)
---         SetPedInfiniteAmmo(LocalPedId, true, hash)
---         Citizen.Wait(1000)
---     end
--- end)
+Citizen.CreateThread(function()
+    while true do
+        LocalPedId = PlayerPedId()
+        LocalPlayerId = PlayerId()
 
+        HideHudComponentThisFrame(6)
+        HideHudComponentThisFrame(7)
+        HideHudComponentThisFrame(8)
+        HideHudComponentThisFrame(9)
 
-Citizen.CreateThread(
-    function()
-        while true do
-            HideHudComponentThisFrame(6)
-            HideHudComponentThisFrame(7)
-            HideHudComponentThisFrame(8)
-            HideHudComponentThisFrame(9)
-            Citizen.Wait(0)
-        end
+        Citizen.Wait(0)
     end
-)
+end)
