@@ -12,14 +12,20 @@ client_scripts {
     "discord_rp.lua",
     "ped_opts.lua",
     "scenarios.lua",
-    "cl_gui.lua",
-    "cl_scoreboard.lua",
-    "cl_utils.lua"
+    "gghud.net.dll",
+    "cl_*.lua"
 }
 
 server_scripts {
     "sv_*.lua"
 }
+
+files {
+   'index.html',
+   'audio/**/*.ogg'
+}
+
+ui_page 'index.html'
 
 server_export "Log"
 server_export "Screenshot"
