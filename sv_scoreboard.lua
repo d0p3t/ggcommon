@@ -278,10 +278,10 @@ local function sortScoreboard(l, r)
         return false
     end
 
-    if l.xp > r.xp then
+    if l.experience > r.experience then
         return true
     end
-    if l.xp < r.xp then
+    if l.experience < r.experience then
         return false
     end
 
