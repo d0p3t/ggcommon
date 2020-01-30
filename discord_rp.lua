@@ -6,7 +6,7 @@ Citizen.CreateThread(
 
         SetDiscordAppId(appId)
         SetDiscordRichPresenceAsset("big")
-        SetDiscordRichPresenceAssetText("Gun Game DM on FiveM. Play now!")
+        SetDiscordRichPresenceAssetText("Play Now! 64.190.90.120:30120")
 
         print("[Common] Set Discord Rich Presence configuration. Updating every 10 seconds.")
 
