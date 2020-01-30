@@ -50,7 +50,7 @@ local rankHeight = 0.0325
 
 local voiceIndicatorWidth = 0.004
 local playerNameMargin = 0.006
-if true then
+if false then
 	voiceIndicatorWidth = 0.01
 	playerNameMargin = 0.0125
 end
