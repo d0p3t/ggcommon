@@ -18,6 +18,7 @@ Citizen.CreateThread(
             end
 
             SetRichPresence("" .. numPlayers .. "/32 " .. playerString .. "")
+			N_0xc54a08c85ae4d410(1.0)
             Citizen.Wait(10000)
         end
     end
