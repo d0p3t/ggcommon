@@ -148,3 +148,21 @@ RegisterCommand(
     end,
     true
 )
+
+RegisterCommand("players", function(source, args, raw)
+    if source ~= 0 then return end
+
+    local numIndices = GetNumPlayerIndices()
+    local players = {}
+
+    for i=0, numIndices, 1 do
+        local netId = GetPlayerFromIndex(i)
+        players[netId] = GetPlayerName(netId)
+    end
+
+    print('Player List')
+    print('============================')
+    for netId, name in pairs(players) do
+        print('ID: ' .. netId .. ' | Name: ' .. name)
+    end
+end, true)

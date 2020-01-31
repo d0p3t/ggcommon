@@ -13,7 +13,7 @@ client_scripts {
     "ped_opts.lua",
     "scenarios.lua",
     "gghud.net.dll",
-    "cl_*.lua"
+	"cl_*.lua"
 }
 
 server_scripts {
@@ -21,8 +21,9 @@ server_scripts {
 }
 
 files {
-   'index.html',
-   'audio/**/*.ogg'
+	'Newtonsoft.Json.dll',
+	'index.html',
+	'audio/**/*.ogg'
 }
 
 ui_page 'index.html'
