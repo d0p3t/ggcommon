@@ -11,17 +11,22 @@ dependency "screenshot-basic"
 client_scripts {
     "discord_rp.lua",
     "ped_opts.lua",
-    "scenarios.lua"
+    "scenarios.lua",
+    "gghud.net.dll",
+	"cl_*.lua"
 }
 
 server_scripts {
-    "sv_uuid.lua",
-    "sv_ss.lua",
-    "sv_cmds.lua",
-    "sv_utils.lua",
-    "sv_config.lua",
-    "sv_sentry.lua"
+    "sv_*.lua"
 }
+
+files {
+	'Newtonsoft.Json.dll',
+	'index.html',
+	'audio/**/*.ogg'
+}
+
+ui_page 'index.html'
 
 server_export "Log"
 server_export "Screenshot"
