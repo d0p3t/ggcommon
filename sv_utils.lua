@@ -126,7 +126,9 @@ AddEventHandler(
         string.find(reason, "kicked") == nil and
         string.find(reason, "Could not connect to session provider.") == nil and
         string.find(reason, "leopard-crazy-table") == nil and
-        string.find(reason, "Failed to getinfo server after 3 attempts.") == nil
+        string.find(reason, "Failed to getinfo server after 3 attempts.") == nil and
+        string.find(reason, "DLC count mismatch") == nil and
+        string.find(reason, "Failed to connect") == nil
      then
       SentryIssue("gamecrash", reason, "warning", {}, _source)
     end
