@@ -14,7 +14,7 @@ Citizen.CreateThread(
   end
 )
 
-function Log(title, message, toDiscord)
+function Log(title, message, toDiscord, screenshot)
   if (toDiscord == true) then
     if (Config.IsConfigured == false or Config.ServerNumber == "DEV") then
       return
@@ -34,6 +34,13 @@ function Log(title, message, toDiscord)
           }
         }
       }
+
+      if(screenshot ~= nil) then
+        embed[1].image = {
+          url = screenshot
+        }
+      end
+
       PerformHttpRequest(
         Config.WebhookUrl,
         function(err, text, headers)
@@ -94,7 +101,7 @@ function Screenshot(player)
           "Screenshot",
           "**Status:** Saved \n**Player:** " ..
             license .. "\n**Filepath:** " .. name .. "\n**URL:** https://gungame.store/screenshots/" .. name .. "",
-          true
+          true, "https://gungame.store/screenshots/" .. name .. ""
         )
       end
     end

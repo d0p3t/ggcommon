@@ -22,11 +22,11 @@ server_scripts {
 
 files {
 	'Newtonsoft.Json.dll',
-	'index.html',
-	'audio/**/*.ogg'
+	--'index.html',
+	--'audio/**/*.ogg'
 }
 
-ui_page 'index.html'
+--ui_page 'index.html'
 
 server_export "Log"
 server_export "Screenshot"
