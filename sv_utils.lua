@@ -124,9 +124,11 @@ AddEventHandler(
         reason ~= "Timed out after 60 seconds." and
         string.find(reason, "banned") == nil and
         string.find(reason, "kicked") == nil and
-        string.find(reason, "Could not connect to session provider.") == nil
+        string.find(reason, "Could not connect to session provider.") == nil and
+        string.find(reason, "leopard-crazy-table") == nil and
+        string.find(reason, "Failed to getinfo server after 3 attempts.") == nil
      then
-      SentryIssue("gamecrash", reason, "warning", { }, _source)
+      SentryIssue("gamecrash", reason, "warning", {}, _source)
     end
   end
 )
