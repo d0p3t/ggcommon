@@ -11,7 +11,7 @@ Citizen.CreateThread(
         print("[Common] Set Discord Rich Presence configuration. Updating every 10 seconds.")
 
         while true do
-            local numPlayers = NetworkGetNumConnectedPlayers()
+            local numPlayers = #GetActivePlayers()
             local playerString = "Players"
             if (numPlayers == 1) then
                 playerString = "Player"
