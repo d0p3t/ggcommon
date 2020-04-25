@@ -170,6 +170,7 @@ function Scoreboard.DisplayThisFrame()
 	local tablePosition = { ['y'] = tablePositionHeader.y + tableHeight + headerTableSpacing }
 	local tableAvatarPositionWidth = (tableHeight * 9 / 16)
 
+	local myPlayerId = PlayerId()
 	table.foreach(scoreboard, function(player)
 		local avatarPosition = { ['x'] = scoreboardPosition.x + tableAvatarPositionWidth / 2, ['y'] = tablePosition.y }
 		local playerPosition = { ['x'] = avatarPosition.x + tablePositionWidth / 2, ['y'] = tablePosition.y }
@@ -192,9 +193,9 @@ function Scoreboard.DisplayThisFrame()
 
 		-- Draw player name
 		local isDonator = player.donator
-		local playerColor = Color.GetHudFromBlipColor(Color.BLIP_BEIGE)
-		if player.id == GetPlayerServerId(-1) then
-				playerColor = Color.GetHudFromBlipColor(Color.BLIP_BLUE)
+		local playerColor = Color.GetHudFromBlipColor(Color.BLIP_GREY)
+		if player.id == GetPlayerServerId(myPlayerId) then
+				playerColor = Color.GetHudFromBlipColor(Color.BLIP_BROWN)
 		end
 		-- if Player.IsCrewMember(player.id) then
 		-- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_LIGHT_BLUE)
@@ -210,14 +211,12 @@ function Scoreboard.DisplayThisFrame()
 		-- end
 
     local tablePositionColor = { ['r'] = playerColor.r, ['g'] = playerColor.g, ['b'] = playerColor.b, ['a'] = isDonator and 228 or 160 }
-    --local tablePositionColor = { ['r'] = 147, ['g'] = 148, ['b'] = 118, ['a'] = 160 }
 		Gui.DrawRect(playerPosition, tablePositionWidth - tableAvatarPositionWidth, tableHeight, tablePositionColor)
 		Gui.SetTextParams(4, tablePositionTextColor, positionScale, false, isDonator)
 		Gui.DrawText(player.name, { ['x'] = playerNamePosition.x - (tablePositionWidth - tableAvatarPositionWidth) / 2 + playerStatusWidth + tableTextHorizontalMargin,
 			['y'] = tableText.y })
 
 		-- Draw voice chat indicator
-        --if Settings.enableVoiceChat then
     if enableVoiceChat then
 			local localPlayerId = GetPlayerFromServerId(player.id)
 			local isPlayerTalking = NetworkIsPlayerTalking(localPlayerId)
@@ -227,6 +226,12 @@ function Scoreboard.DisplayThisFrame()
 
 		-- Draw rank
 		local playerRankColor = rankColor
+		local rank = player.rank
+		if rank >= 25 and rank < 50 then
+			playerRankColor = Color.GetHudFromBlipColor(Color.BLIP_ORANGE)
+		elseif rank >= 50 then
+			playerRankColor = Color.GetHudFromBlipColor(Color.BLIP_RED)
+		end
 		-- if player.prestige ~= 0 then playerRankColor = {
 		-- 	r = prestigeColor.r + prestigeBlendColor.r * player.prestige,
 		-- 	g = prestigeColor.g + prestigeBlendColor.g * player.prestige,
