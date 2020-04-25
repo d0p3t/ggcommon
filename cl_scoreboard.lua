@@ -42,6 +42,7 @@ local tableCashWidth = 0.075
 local tableKdRatioWidth = 0.075
 local tableKillsWidth = 0.075
 local tableDeathsWidth = 0.075
+local tableKillstreakWidth = 0.075
 local tableTextHorizontalMargin = 0.00225
 local tableTextVerticalMargin = 0.00245
 local playerStatusWidth = 0.00225
@@ -50,12 +51,13 @@ local rankHeight = 0.0325
 
 local voiceIndicatorWidth = 0.004
 local playerNameMargin = 0.006
-if false then
+local enableVoiceChat = true
+if enableVoiceChat then
 	voiceIndicatorWidth = 0.01
 	playerNameMargin = 0.0125
 end
 
-local tableWidth = tablePositionWidth + tableCashWidth + tableKdRatioWidth + tableKillsWidth + tableDeathsWidth
+local tableWidth = tablePositionWidth + tableCashWidth + tableKdRatioWidth + tableKillsWidth + tableDeathsWidth + tableKillstreakWidth
 
 local headerScale = 0.2625
 local positionScale = 0.375
@@ -64,7 +66,7 @@ local cashScale = 0.2625
 local kdRatioScale = 0.2625
 local killsScale = 0.2625
 local deathsScale = 0.2625
-
+local killstreakScale = 0.2625
 
 -- Colors
 local tableHeaderColor = { ['r'] = 131, ['g'] = 123, ['b'] = 99, ['a'] = 255 }
@@ -83,6 +85,9 @@ local tableKillsTextColor = { ['r'] = 255, ['g'] = 255, ['b'] = 255, ['a'] = 255
 
 local tableDeathsColor = { ['r'] = 0, ['g'] = 0, ['b'] = 0, ['a'] = 160 }
 local tableDeathsTextColor = { ['r'] = 255, ['g'] = 255, ['b'] = 255, ['a'] = 255 }
+
+local tableKillstreakColor = { ['r'] = 0, ['g'] = 0, ['b'] = 0, ['a'] = 160 }
+local tableKillstreakTextColor = { ['r'] = 255, ['g'] = 255, ['b'] = 255, ['a'] = 255 }
 
 local activeVoiceIndicatorColor = { ['r'] = 255, ['g'] = 255, ['b'] = 255, ['a'] = 255 }
 local inactiveVoiceIndicatorColor = { ['r'] = 10, ['g'] = 10, ['b'] = 10, ['a'] = 255 }
@@ -130,6 +135,7 @@ function Scoreboard.DisplayThisFrame()
 	local tableKdRatioHeader = { ['x'] = tableCashHeader.x + tableCashWidth / 2 + tableKdRatioWidth / 2 , ['y'] = tableHeader.y }
 	local tableKillsHeader = { ['x'] = tableKdRatioHeader.x + tableKdRatioWidth / 2 + tableKillsWidth / 2 , ['y'] = tableHeader.y }
 	local tableDeathsHeader = { ['x'] = tableKillsHeader.x + tableKillsWidth / 2 + tableDeathsWidth / 2 , ['y'] = tableHeader.y }
+	local tableKillstreakHeader =  { ['x'] = tableDeathsHeader.x + tableDeathsWidth / 2 + tableKillstreakWidth / 2 , ['y'] = tableHeader.y }
 
 	-- Draw 'POSITION' header
 	Gui.DrawRect(tablePositionHeader, tablePositionWidth, tableHeight, tableHeaderColor)
@@ -156,7 +162,11 @@ function Scoreboard.DisplayThisFrame()
 	Gui.SetTextParams(0, tableHeaderTextColor, headerScale, false, false, true)
 	Gui.DrawText('DEATHS', { ['x'] = tableDeathsHeader.x, ['y'] = tableHeaderText.y })
 
-	-- Draw table
+	-- Draw 'KILLSTREAK' header
+	Gui.DrawRect(tableKillstreakHeader, tableKillstreakWidth, tableHeight, tableHeaderColor)
+	Gui.SetTextParams(0, tableHeaderTextColor, headerScale, false, false, true)
+	Gui.DrawText('KILLSTREAK', { ['x'] = tableKillstreakHeader.x, ['y'] = tableHeaderText.y })
+
 	local tablePosition = { ['y'] = tablePositionHeader.y + tableHeight + headerTableSpacing }
 	local tableAvatarPositionWidth = (tableHeight * 9 / 16)
 
@@ -171,6 +181,8 @@ function Scoreboard.DisplayThisFrame()
 		local kdRatioPosition = { ['x'] = tableKdRatioHeader.x, ['y'] = tablePosition.y }
 		local killsPosition = { ['x'] = tableKillsHeader.x, ['y'] = tablePosition.y }
 		local deathsPosition = { ['x'] = tableDeathsHeader.x, ['y'] = tablePosition.y }
+		local killstreakPosition = { ['x'] = tableKillstreakHeader.x, ['y'] = tablePosition.y }
+
 		local tableText = { ['y'] = tablePosition.y - tableHeight / 2 }
 
 		-- Draw player id
@@ -179,28 +191,34 @@ function Scoreboard.DisplayThisFrame()
 		Gui.DrawNumeric(player.id, { ['x'] = avatarPosition.x, ['y'] = tableText.y + tableTextVerticalMargin })
 
 		-- Draw player name
-		local isPatron = player.patreonTier ~= 0
-        local playerColor = Color.GetHudFromBlipColor(Color.BLIP_DARK_BLUE)
-        if player.id == GetPlayerServerId(-1) then
-            playerColor = Color.GetHudFromBlipColor(Color.BLIP_BLUE)
-        end
+		local isDonator = player.donator
+		local playerColor = Color.GetHudFromBlipColor(Color.BLIP_BEIGE)
+		if player.id == GetPlayerServerId(-1) then
+				playerColor = Color.GetHudFromBlipColor(Color.BLIP_BLUE)
+		end
 		-- if Player.IsCrewMember(player.id) then
 		-- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_LIGHT_BLUE)
-		-- elseif isPatron then
-		-- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_ORANGE)
-		-- elseif player.id == Player.ServerId() then
-		-- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_BLUE)
+		-- if isDonator then
+		-- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_PURPLE)
+		-- -- elseif player.id == Player.ServerId() then
+		-- -- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_BLUE)
 		-- end
-        --local tablePositionColor = { ['r'] = playerColor.r, ['g'] = playerColor.g, ['b'] = playerColor.b, ['a'] = isPatron and 228 or 160 }
-        local tablePositionColor = { ['r'] = 147, ['g'] = 148, ['b'] = 118, ['a'] = 160 }
+
+		-- local isModerator = player.moderator
+		-- if isModerator then
+		-- 	playerColor = Color.GetHudFromBlipColor(Color.BLIP_GREEN)
+		-- end
+
+    local tablePositionColor = { ['r'] = playerColor.r, ['g'] = playerColor.g, ['b'] = playerColor.b, ['a'] = isDonator and 228 or 160 }
+    --local tablePositionColor = { ['r'] = 147, ['g'] = 148, ['b'] = 118, ['a'] = 160 }
 		Gui.DrawRect(playerPosition, tablePositionWidth - tableAvatarPositionWidth, tableHeight, tablePositionColor)
-		Gui.SetTextParams(4, tablePositionTextColor, positionScale, false, isPatron)
+		Gui.SetTextParams(4, tablePositionTextColor, positionScale, false, isDonator)
 		Gui.DrawText(player.name, { ['x'] = playerNamePosition.x - (tablePositionWidth - tableAvatarPositionWidth) / 2 + playerStatusWidth + tableTextHorizontalMargin,
 			['y'] = tableText.y })
 
 		-- Draw voice chat indicator
         --if Settings.enableVoiceChat then
-        if true then
+    if enableVoiceChat then
 			local localPlayerId = GetPlayerFromServerId(player.id)
 			local isPlayerTalking = NetworkIsPlayerTalking(localPlayerId)
 			local voiceIndicatorColor = isPlayerTalking and activeVoiceIndicatorColor or inactiveVoiceIndicatorColor
@@ -221,8 +239,8 @@ function Scoreboard.DisplayThisFrame()
 
 		-- Draw player status
 		local playerStatusColor = Color.GetHudFromBlipColor(Color.BLIP_WHITE)
-		--if player.moderator then playerStatusColor = Color.GetHudFromBlipColor(Color.BLIP_PURPLE)
-		--elseif isPatron then playerStatusColor = Color.GetHudFromBlipColor(Color.BLIP_ORANGE) end
+		if isDonator then playerStatusColor = Color.GetHudFromBlipColor(Color.BLIP_PURPLE) end
+		if player.moderator then playerStatusColor = Color.GetHudFromBlipColor(Color.BLIP_GREEN) end
 		Gui.DrawRect(playerStatusPosition, playerStatusWidth, tableHeight, playerStatusColor)
 
 		-- Draw cash
@@ -248,6 +266,11 @@ function Scoreboard.DisplayThisFrame()
 		Gui.DrawRect(deathsPosition, tableDeathsWidth, tableHeight, tableDeathsColor)
 		Gui.SetTextParams(0, tableDeathsTextColor, deathsScale, false, false, true)
 		Gui.DrawNumeric(player.deaths, { ['x'] = tableDeathsHeader.x, ['y'] = tableText.y + tableTextVerticalMargin })
+
+		-- Draw killstreak
+		Gui.DrawRect(killstreakPosition, tableKillstreakWidth, tableHeight, tableKillstreakColor)
+		Gui.SetTextParams(0, tableKillstreakTextColor, killstreakScale, false, false, true)
+		Gui.DrawNumeric(player.killstreak, { ['x'] = tableKillstreakHeader.x, ['y'] = tableText.y + tableTextVerticalMargin })
 
 		-- Update table position
 		tablePosition.y = tablePosition.y + tableSpacing + tableHeight

@@ -240,7 +240,8 @@ Color.BLIP_GREY = 20
 Color.BLIP_BROWN = 21
 Color.BLIP_PINK = 23
 Color.BLIP_LIGHT_BLUE = 26
-Color.BLIP_DARK_BLUE = 38
+Color.BLIP_DARK_BLUE = 34
+Color.BLIP_BEIGE = 35
 
 
 local blipColors = {
@@ -263,7 +264,7 @@ local blipColors = {
 	{ r = 214, g = 196, b = 153, a = 255 },
 	{ r = 234, g = 142, b = 80, a = 255 },
 	{ r = 152, g = 203, b = 234, a = 255 },
-	{ r = 178, g = 98, b = 135, a = 255 },
+	{ r = 100, g = 65, b = 164, a = 255 },
 	{ r = 144, g = 142, b = 122, a = 255 },
 	{ r = 166, g = 117, b = 94, a = 255 },
 	{ r = 175, g = 168, b = 168, a = 255 },
@@ -278,7 +279,9 @@ local blipColors = {
 	{ r = 186, g = 157, b = 125, a = 255 },
 	{ r = 201, g = 225, b = 255, a = 255 },
 	{ r = 240, g = 240, b = 150, a = 255 },
-	[39] = { r = 44, g = 109, b = 184, a = 255}, -- Lazy bitch
+	{ r = 44, g = 109, b = 184, a = 255},
+	{ r = 147, g = 148, b = 118, a = 255},
+	[36] = { r = 147, g = 148, b = 118, a = 255},
 }
 
 
