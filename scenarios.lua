@@ -55,7 +55,7 @@ local Scenarios = {
 local FirstSpawn = true
 
 AddEventHandler(
-    "playerSpawned",
+    "spawn",
     function()
         if (FirstSpawn) then
             local count = 0
