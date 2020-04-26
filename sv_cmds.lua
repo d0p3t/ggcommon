@@ -1,11 +1,33 @@
-local lastReport = GetGameTimer()
+local recentReports = {}
 
 RegisterCommand(
     "report",
     function(source, args, raw)
         local _source = source
 
-        if (_source == 0 or args[1] == nil or GetGameTimer() - lastReport < 60000) then
+        if recentReports[_source] ~= nil then
+            local now = GetGameTimer()
+            local since = (now - recentReports[_source]) / 1000.0
+
+            if since < 60 then
+                TriggerClientEvent(
+                    "chat:addMessage",
+                    _source,
+                    {args = {"REPORT", "You cannot report for another " .. since .. " seconds."}, color = {255, 0, 0}}
+                )
+                CancelEvent()
+                return
+            end
+
+            recentReports[_source] = nil -- Reset the cooldown
+        end
+
+        if (_source == 0 or args[1] == nil) then
+            TriggerClientEvent(
+                "chat:addMessage",
+                _source,
+                {args = {"REPORT", "You did not specify a Player ID."}, color = {255, 0, 0}}
+            )
             CancelEvent()
             return
         end
@@ -17,7 +39,7 @@ RegisterCommand(
             TriggerClientEvent(
                 "chat:addMessage",
                 _source,
-                {args = {"REPORT", "Invalid Player ID. Make sure it's correct (Press + Hold Z)"}, color = {255, 0, 0}}
+                {args = {"REPORT", "Invalid Player ID. Check scoreboard (Press + Hold Z)."}, color = {255, 0, 0}}
             )
             CancelEvent()
             return
@@ -28,7 +50,7 @@ RegisterCommand(
         table.remove(args, 1)
 
         if (args[1] ~= nil) then
-            reason = table.concat(args)
+            reason = table.concat(args, " ")
         end
 
         local reportedBy = GetPlayerName(_source)
@@ -82,10 +104,10 @@ RegisterCommand(
         TriggerClientEvent(
             "chat:addMessage",
             _source,
-            {args = {"REPORT", "Staff will handle your report."}, color = {255, 0, 0}}
+            {args = {"REPORT", "Your report has been received."}, color = {255, 0, 0}}
         )
 
-        lastReport = GetGameTimer()
+        recentReports[_source] = GetGameTimer()
     end,
     false
 )
@@ -149,20 +171,9 @@ RegisterCommand(
     true
 )
 
-RegisterCommand("players", function(source, args, raw)
-    if source ~= 0 then return end
-
-    local numIndices = GetNumPlayerIndices()
-    local players = {}
-
-    for i=0, numIndices, 1 do
-        local netId = GetPlayerFromIndex(i)
-        players[netId] = GetPlayerName(netId)
+AddEventHandler(
+    "playerDropped",
+    function()
+        recentReports[source] = nil
     end
-
-    print('Player List')
-    print('============================')
-    for netId, name in pairs(players) do
-        print('ID: ' .. netId .. ' | Name: ' .. name)
-    end
-end, true)
+)
