@@ -1,16 +1,14 @@
 local FirstSpawn = true
-local LocalPedId = 0
-local LocalPlayerId = 0
 
 RegisterNetEvent("spawn")
 AddEventHandler(
     "spawn",
     function()
         NetworkSetFriendlyFireOption(true)
-        SetCanAttackFriendly(LocalPedId, true, true)
-        NetworkSetTalkerProximity(30.0)
+        SetCanAttackFriendly(PlayerPedId(), true, true)
 
         if (FirstSpawn) then
+            NetworkSetTalkerProximity(30.0)
             SetGarbageTrucks(false)
             SetRandomBoats(false)
 
@@ -18,7 +16,10 @@ AddEventHandler(
                 EnableDispatchService(service, false)
             end
 
-            print("[Common] Disabled dispatch services, garbage trucks, and boats.")
+            ClearPlayerWantedLevel(PlayerId())
+            SetMaxWantedLevel(0)
+
+            print("[Common] Disabled dispatch services, garbage trucks, boats, and set talker proximity (30m radius).")
 
             FirstSpawn = false
         end
@@ -27,16 +28,6 @@ AddEventHandler(
 
 Citizen.CreateThread(
     function()
-        Citizen.Wait(2000)
-        TriggerEvent(
-            "chat:addSuggestion",
-            "/report",
-            "Report another player",
-            {
-                {name = "ID", help = "Player ID (Press + Hold Z for scoreboard)"},
-                {name = "Reason", help = "Reason for report (e.g. Godmode or screaming)"}
-            }
-        )
         while true do
             Citizen.Wait(0)
             SetPedDensityMultiplierThisFrame(0.0)
@@ -45,26 +36,20 @@ Citizen.CreateThread(
             SetParkedVehicleDensityMultiplierThisFrame(0.0)
             SetRandomVehicleDensityMultiplierThisFrame(0.0)
 
-            RestorePlayerStamina(LocalPlayerId, 1.0)
-
-            if (GetPlayerWantedLevel(LocalPlayerId) > 0) then
-                ClearPlayerWantedLevel(LocalPlayerId)
-                SetPlayerWantedLevelNow(LocalPlayerId, 0)
-            end
+            RestorePlayerStamina(PlayerId(), 1.0)
         end
     end
 )
 
-Citizen.CreateThread(function()
-    while true do
-        LocalPedId = PlayerPedId()
-        LocalPlayerId = PlayerId()
+Citizen.CreateThread(
+    function()
+        while true do
+            HideHudComponentThisFrame(6)
+            HideHudComponentThisFrame(7)
+            HideHudComponentThisFrame(8)
+            HideHudComponentThisFrame(9)
 
-        HideHudComponentThisFrame(6)
-        HideHudComponentThisFrame(7)
-        HideHudComponentThisFrame(8)
-        HideHudComponentThisFrame(9)
-
-        Citizen.Wait(0)
+            Citizen.Wait(0)
+        end
     end
-end)
+)
