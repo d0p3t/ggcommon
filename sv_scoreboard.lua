@@ -320,7 +320,11 @@ local function sortScoreboard(l, r)
         return false
     end
 
-    return l.name < r.name
+    if l.name and r.name then
+        return l.name < r.name
+    end
+
+    return true
 end
 
 local function calculateKdRatio(kills, deaths)
