@@ -347,11 +347,14 @@ end
 
 function Scoreboard.AddPlayer(player, playerStats)
     if not scoreboard[player] then
+        local playerName = GetPlayerName(player)
+
+        if not playerName then playerName = "" end
         scoreboard[player] = {
             id = player,
             --patreonTier = playerStats.PatreonTier,
             moderator = playerStats.Moderator,
-            name = GetPlayerName(player),
+            name = playerName,
             cash = playerStats.Cash,
             kdRatio = calculateKdRatio(playerStats.Kills, playerStats.Deaths),
             kills = playerStats.Kills,
