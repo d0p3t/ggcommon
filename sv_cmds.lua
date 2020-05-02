@@ -1,5 +1,9 @@
 local recentReports = {}
 
+local function GetIdentifiers(player)
+
+end
+
 RegisterCommand(
     "report",
     function(source, args, raw)
@@ -184,6 +188,20 @@ RegisterCommand(
         local netId = args[1]
         local playerName = GetPlayerName(netId)
 
+        if (playerName == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent(
+                    "chat:addMessage",
+                    _source,
+                    {args = {"BAN", "Did not find player with netId " .. netId .. "."}, color = {255, 0, 0}}
+                )
+            else
+                print("[BAN COMMAND] Did not find player with netId " .. netId .. ".")
+            end
+            CancelEvent()
+            return
+        end
+
         local index = 2
         local reason = ""
         while args[index] ~= nil do
@@ -203,7 +221,7 @@ RegisterCommand(
         local live = ""
         local fivem = ""
 
-        for k, v in pairs(GetPlayerIdentifiers(reporting)) do
+        for k, v in pairs(GetPlayerIdentifiers(netId)) do
             if string.sub(v, 1, string.len("steam:")) == "steam:" then
                 steam = v
             elseif string.sub(v, 1, string.len("license:")) == "license:" then
