@@ -23,11 +23,7 @@ RegisterCommand(
         end
 
         if (_source == 0 or args[1] == nil) then
-            TriggerClientEvent(
-                "chat:addMessage",
-                _source,
-                {args = {"REPORT", "You did not specify a Player ID."}, color = {255, 0, 0}}
-            )
+            TriggerClientEvent("chat:addMessage", _source, {args = {"REPORT", "You did not specify a Player ID."}, color = {255, 0, 0}})
             CancelEvent()
             return
         end
@@ -95,17 +91,11 @@ RegisterCommand(
                                                     "\n**XBL:** " ..
                                                         xbl ..
                                                             "\n**Live:** " ..
-                                                                live ..
-                                                                    "\n**Discord:** " ..
-                                                                        discord .. "\n**FiveM:** " .. fivem .. "",
+                                                                live .. "\n**Discord:** " .. discord .. "\n**FiveM:** " .. fivem .. "",
             true
         )
 
-        TriggerClientEvent(
-            "chat:addMessage",
-            _source,
-            {args = {"REPORT", "Your report has been received."}, color = {255, 0, 0}}
-        )
+        TriggerClientEvent("chat:addMessage", _source, {args = {"REPORT", "Your report has been received."}, color = {255, 0, 0}})
 
         recentReports[_source] = GetGameTimer()
     end,
@@ -166,7 +156,89 @@ RegisterCommand(
             index = index + 1
         end
 
-        TriggerEvent("ggac:banMe", amountOfHours, reason, netId)
+        local bannedBy = "console"
+        if source ~= 0 then
+            bannedBy = "Moderator " .. GetPlayerName(_source)
+        end
+
+        TriggerEvent("ggac:banMe", amountOfHours, reason, netId, nil, bannedBy)
+    end,
+    true
+)
+
+RegisterCommand(
+    "kick",
+    function(source, args, raw)
+        local _source = source
+
+        if (args[2] == nil) then
+            if (_source ~= 0) then
+                TriggerClientEvent("chat:addMessage", _source, {args = {"KICK", "Did not specify netId or a reason"}, color = {255, 0, 0}})
+            else
+                print("[KICK COMMAND] Did not specify netId or a reason.")
+            end
+            CancelEvent()
+            return
+        end
+
+        local netId = args[1]
+        local playerName = GetPlayerName(netId)
+
+        local index = 2
+        local reason = ""
+        while args[index] ~= nil do
+            reason = reason .. args[index] .. " "
+            index = index + 1
+        end
+
+        local kickedBy = "console"
+        if source ~= 0 then
+            kickedBy = "Moderator " .. GetPlayerName(_source)
+        end
+
+        local steam = ""
+        local license = ""
+        local discord = ""
+        local xbl = ""
+        local live = ""
+        local fivem = ""
+
+        for k, v in pairs(GetPlayerIdentifiers(reporting)) do
+            if string.sub(v, 1, string.len("steam:")) == "steam:" then
+                steam = v
+            elseif string.sub(v, 1, string.len("license:")) == "license:" then
+                license = v
+            elseif string.sub(v, 1, string.len("xbl:")) == "xbl:" then
+                xbl = v
+            elseif string.sub(v, 1, string.len("discord:")) == "discord:" then
+                discord = v
+            elseif string.sub(v, 1, string.len("live:")) == "live:" then
+                live = v
+            elseif string.sub(v, 1, string.len("fivem:")) == "fivem:" then
+                fivem = v
+            end
+        end
+
+        Log(
+            "Player Kicked",
+            "\n**Name:** " ..
+                playerName ..
+                    "\b**By:** " ..
+                        kickedBy ..
+                            "\n**Reason:** " ..
+                                reason ..
+                                    "\n**License:** " ..
+                                        license ..
+                                            "\n**Steam:**" ..
+                                                steam ..
+                                                    "\n**XBL:** " ..
+                                                        xbl ..
+                                                            "\n**Live:** " ..
+                                                                live .. "\n**Discord:** " .. discord .. "\n**FiveM:** " .. fivem .. "",
+            true
+        )
+
+        DropPlayer(netId, reason)
     end,
     true
 )
