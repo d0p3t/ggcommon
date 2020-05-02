@@ -1,7 +1,6 @@
 local recentReports = {}
 
 local function GetIdentifiers(player)
-
 end
 
 RegisterCommand(
@@ -241,7 +240,7 @@ RegisterCommand(
             "Player Kicked",
             "\n**Name:** " ..
                 playerName ..
-                    "\b**By:** " ..
+                    "\n**By:** " ..
                         kickedBy ..
                             "\n**Reason:** " ..
                                 reason ..
