@@ -1,8 +1,12 @@
 Scoreboard = { }
 
-
 local scoreboard = { }
 
+function Scoreboard.GetPlayer(playerId)
+	local serverId = GetPlayerServerId(playerId)
+	local player = table.find_if(scoreboard, function(player) return player.id == serverId end)
+	return player or nil
+end
 
 -- function Scoreboard.GetPlayerPatreonTier(playerId)
 -- 	local serverId = GetPlayerServerId(playerId)
