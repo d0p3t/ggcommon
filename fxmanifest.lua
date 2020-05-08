@@ -2,32 +2,30 @@ fx_version "adamant"
 game "gta5"
 
 name "GGCommon"
-description "Static Gun Game features"
+description "Gamemode independant features for the Gun Game server"
 author "Remco Troost (d0p3t)"
 url "https://github.com/d0p3t/ggcommon"
 
 dependency "screenshot-basic"
 
 client_scripts {
-    "discord_rp.lua",
-    "ped_opts.lua",
-    "scenarios.lua",
-    "gghud.net.dll",
-	"cl_*.lua"
+    "client/*.lua",
+    "client/*.net.dll"
 }
 
 server_scripts {
-    "sv_*.lua"
+    "server/*.lua"
 }
 
 files {
-	'Newtonsoft.Json.dll',
-	--'index.html',
-	--'audio/**/*.ogg'
+	'client/lib/Newtonsoft.Json.dll',
+	'client/lib/index.html',
+	'client/lib/audio/**/*.ogg'
 }
 
---ui_page 'index.html'
+ui_page 'client/lib/index.html'
 
+server_export "PrintLog"
 server_export "Log"
 server_export "Screenshot"
 server_export "SentryIssue"
