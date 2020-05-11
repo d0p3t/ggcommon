@@ -8,6 +8,6 @@ function Respawn()
   SetEntityHealth(ped, 0)
 end
 
-RegisterCommand("suicide", Respawn() , false)
-RegisterCommand("die", Respawn() , false)
-RegisterCommand("respawn", Respawn() , false)
+RegisterCommand("suicide", Respawn , false)
+RegisterCommand("die", Respawn , false)
+RegisterCommand("respawn", Respawn , false)
