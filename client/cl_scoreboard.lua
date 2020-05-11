@@ -122,7 +122,7 @@ AddEventHandler('onClientResourceStart', function(resource)
     if GetCurrentResourceName() ~= resource then return end
 
     AddTextEntry('MONEY_ENTRY', '$~1~')
-    
+
 	Streaming.RequestStreamedTextureDict('mpleaderboard')
 	Streaming.RequestStreamedTextureDict('mprankbadge')
 end)
@@ -135,8 +135,9 @@ function Scoreboard.DisplayThisFrame()
 	local tableHeaderText = { ['y'] = tableHeader.y - tableHeight / 2 + tableTextVerticalMargin }
 
 	local tablePositionHeader = { ['x'] = scoreboardPosition.x + tablePositionWidth / 2, ['y'] = tableHeader.y }
-	local tableCashHeader = { ['x'] = tablePositionHeader.x + tablePositionWidth / 2 + tableCashWidth / 2 , ['y'] = tableHeader.y }
-	local tableKdRatioHeader = { ['x'] = tableCashHeader.x + tableCashWidth / 2 + tableKdRatioWidth / 2 , ['y'] = tableHeader.y }
+	--local tableCashHeader = { ['x'] = tablePositionHeader.x + tablePositionWidth / 2 + tableCashWidth / 2 , ['y'] = tableHeader.y }
+	--local tableKdRatioHeader = { ['x'] = tableCashHeader.x + tableCashWidth / 2 + tableKdRatioWidth / 2 , ['y'] = tableHeader.y }
+	local tableKdRatioHeader = { ['x'] = tablePositionHeader.x + tablePositionWidth / 2 + tableCashWidth / 2 , ['y'] = tableHeader.y }
 	local tableKillsHeader = { ['x'] = tableKdRatioHeader.x + tableKdRatioWidth / 2 + tableKillsWidth / 2 , ['y'] = tableHeader.y }
 	local tableDeathsHeader = { ['x'] = tableKillsHeader.x + tableKillsWidth / 2 + tableDeathsWidth / 2 , ['y'] = tableHeader.y }
 	local tableKillstreakHeader =  { ['x'] = tableDeathsHeader.x + tableDeathsWidth / 2 + tableKillstreakWidth / 2 , ['y'] = tableHeader.y }
@@ -146,10 +147,10 @@ function Scoreboard.DisplayThisFrame()
 	Gui.SetTextParams(0, tableHeaderTextColor, headerScale, false, false, true)
 	Gui.DrawText('PLAYER', { ['x'] = tablePositionHeader.x, ['y'] = tableHeaderText.y })
 
-	-- Draw 'CASH' header
-	Gui.DrawRect(tableCashHeader, tableCashWidth, tableHeight, tableHeaderColor)
-	Gui.SetTextParams(0, tableHeaderTextColor, headerScale, false, false, true)
-	Gui.DrawText('MONEY', { ['x'] = tableCashHeader.x, ['y'] = tableHeaderText.y })
+	-- Draw 'CASH' header -- TEMPORARILY DISABLED
+	-- Gui.DrawRect(tableCashHeader, tableCashWidth, tableHeight, tableHeaderColor)
+	-- Gui.SetTextParams(0, tableHeaderTextColor, headerScale, false, false, true)
+	-- Gui.DrawText('MONEY', { ['x'] = tableCashHeader.x, ['y'] = tableHeaderText.y })
 
 	-- Draw 'KILLSTREAK' header
 	Gui.DrawRect(tableKdRatioHeader, tableKdRatioWidth, tableHeight, tableHeaderColor)
@@ -182,7 +183,7 @@ function Scoreboard.DisplayThisFrame()
 		local rankPosition = { ['x'] = (scoreboardPosition.x + tableAvatarPositionWidth / 2 + voiceIndicatorWidth) + 0.015, ['y'] = tablePosition.y + 0.001 }
 		local playerNamePosition = { ['x'] = (avatarPosition.x + tablePositionWidth / 2 + rankWidth / 2) + playerNameMargin, ['y'] = tablePosition.y }
 		local playerStatusPosition = { ['x'] = avatarPosition.x + tableAvatarPositionWidth / 2 + playerStatusWidth / 2, ['y'] = tablePosition.y }
-		local cashPosition = { ['x'] = tableCashHeader.x, ['y'] = tablePosition.y }
+		--local cashPosition = { ['x'] = tableCashHeader.x, ['y'] = tablePosition.y }
 		local kdRatioPosition = { ['x'] = tableKdRatioHeader.x, ['y'] = tablePosition.y }
 		local killsPosition = { ['x'] = tableKillsHeader.x, ['y'] = tablePosition.y }
 		local deathsPosition = { ['x'] = tableDeathsHeader.x, ['y'] = tablePosition.y }
@@ -252,10 +253,10 @@ function Scoreboard.DisplayThisFrame()
 		if player.moderator then playerStatusColor = Color.GetHudFromBlipColor(Color.BLIP_GREEN) end
 		Gui.DrawRect(playerStatusPosition, playerStatusWidth, tableHeight, playerStatusColor)
 
-		-- Draw cash
-		Gui.DrawRect(cashPosition, tableCashWidth, tableHeight, tableCashColor)
-		Gui.SetTextParams(0, tableCashTextColor, cashScale, false, false, true)
-		Gui.DrawTextEntry('MONEY_ENTRY', { ['x'] = tableCashHeader.x, ['y'] = tableText.y + tableTextVerticalMargin }, player.cash)
+		-- Draw cash -- TEMPORARILY DISABLE
+		--Gui.DrawRect(cashPosition, tableCashWidth, tableHeight, tableCashColor)
+		--Gui.SetTextParams(0, tableCashTextColor, cashScale, false, false, true)
+		--Gui.DrawTextEntry('MONEY_ENTRY', { ['x'] = tableCashHeader.x, ['y'] = tableText.y + tableTextVerticalMargin }, player.cash)
 
 		-- Draw kdRatio
 		Gui.DrawRect(kdRatioPosition, tableKdRatioWidth, tableHeight, tableKdRatioColor)
@@ -289,7 +290,7 @@ end
 Citizen.CreateThread(function()
     while true do
         Citizen.Wait(0)
-        if IsControlPressed(0, 20) then 
+        if IsControlPressed(0, 20) then
             Scoreboard.DisplayThisFrame()
         end
     end

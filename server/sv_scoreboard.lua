@@ -355,7 +355,7 @@ function Scoreboard.AddPlayer(player, playerStats)
             --patreonTier = playerStats.PatreonTier,
             moderator = playerStats.Moderator,
             name = playerName,
-            cash = playerStats.Cash,
+            --cash = playerStats.Cash, -- TEMPORARILY DISABLE
             kdRatio = calculateKdRatio(playerStats.Kills, playerStats.Deaths),
             kills = playerStats.Kills,
             deaths = playerStats.Deaths,
@@ -474,7 +474,7 @@ AddEventHandler(
             scoreboard[player].kdRatio = calculateKdRatio(scoreboard[player].kills, scoreboard[player].deaths)
             scoreboard[player].killstreak = killstreak
             scoreboard[player].experience = xp
-            scoreboard[player].cash = cash
+            --scoreboard[player].cash = cash
         end
     end
 )
@@ -513,7 +513,7 @@ AddEventHandler(
                     moderator = user.moderator,
                     donator = user.donator,
                     name = GetPlayerName(user.netId),
-                    cash = user.money,
+                    --cash = user.money,
                     kdRatio = calculateKdRatio(user.kills, user.deaths),
                     kills = user.kills,
                     deaths = user.deaths,
@@ -522,7 +522,7 @@ AddEventHandler(
                     rank = calculateRank(user.xp)
                 }
             else
-                scoreboard[user.netId].cash = user.money
+                --scoreboard[user.netId].cash = user.money
                 scoreboard[user.netId].kdRatio = calculateKdRatio(user.kills, user.deaths)
                 scoreboard[user.netId].kills = user.kills
                 scoreboard[user.netId].deaths = user.deaths
