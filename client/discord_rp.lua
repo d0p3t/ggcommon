@@ -9,7 +9,7 @@ Citizen.CreateThread(
 
         SetDiscordAppId(appId)
         SetDiscordRichPresenceAsset("big")
-        SetDiscordRichPresenceAssetText("Play Now! 64.190.90.120:30120")
+        SetDiscordRichPresenceAssetText("Play Now on FiveM!")
 
         while true do
             local numPlayers = #GetActivePlayers()
