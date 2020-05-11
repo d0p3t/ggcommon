@@ -278,12 +278,12 @@ local function sortScoreboard(l, r)
         return false
     end
 
-    if l.experience > r.experience then
-        return true
-    end
-    if l.experience < r.experience then
-        return false
-    end
+    -- if l.experience > r.experience then
+    --     return true
+    -- end
+    -- if l.experience < r.experience then
+    --     return false
+    -- end
 
     if l.cash > r.cash then
         return true
@@ -360,7 +360,7 @@ function Scoreboard.AddPlayer(player, playerStats)
             kills = playerStats.Kills,
             deaths = playerStats.Deaths,
             killstreak = 0,
-            experience = playerStats.Experience,
+            --experience = playerStats.Experience,
             rank = playerStats.Rank
             --prestige = playerStats.Prestige,
         }
@@ -473,7 +473,7 @@ AddEventHandler(
             scoreboard[player].deaths = deaths
             scoreboard[player].kdRatio = calculateKdRatio(scoreboard[player].kills, scoreboard[player].deaths)
             scoreboard[player].killstreak = killstreak
-            scoreboard[player].experience = xp
+            --scoreboard[player].experience = xp
             --scoreboard[player].cash = cash
         end
     end
@@ -518,7 +518,7 @@ AddEventHandler(
                     kills = user.kills,
                     deaths = user.deaths,
                     killstreak = user.killstreak,
-                    experience = user.xp,
+                    --experience = user.xp,
                     rank = calculateRank(user.xp)
                 }
             else
@@ -527,7 +527,7 @@ AddEventHandler(
                 scoreboard[user.netId].kills = user.kills
                 scoreboard[user.netId].deaths = user.deaths
                 scoreboard[user.netId].killstreak = user.killstreak
-                scoreboard[user.netId].experience = user.xp
+                --scoreboard[user.netId].experience = user.xp
                 scoreboard[user.netId].rank = calculateRank(user.xp)
             end
         end
