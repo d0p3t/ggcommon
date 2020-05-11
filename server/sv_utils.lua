@@ -129,10 +129,11 @@ AddEventHandler(
       reason ~= "Disconnected." and reason ~= "Reconnecting" and reason ~= "Quit." and reason ~= "Exiting" and
         reason ~= "Connecting to another server." and
         reason ~= "Timed out after 60 seconds." and
+        reason ~= "Game crashed: leopard-crazy-table (GTA5+7A6478)" and
         string.find(reason, "banned") == nil and
         string.find(reason, "kicked") == nil and
         string.find(reason, "Could not connect to session provider.") == nil and
-        string.find(reason, "leopard-crazy-table") == nil and
+        string.find(reason, "(GTA5+7A6478)") == nil and
         string.find(reason, "Failed to getinfo server after 3 attempts.") == nil and
         string.find(reason, "DLC count mismatch") == nil and
         string.find(reason, "Failed to connect") == nil
