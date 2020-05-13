@@ -23,9 +23,7 @@ Citizen.CreateThread(
     end
 
     enabled = GetResourceKvpInt("ggquakepack")
-    print(enabled)
     if enabled == nil then
-      print('yea for some reason')
       enabled = false
     end
     pack = GetResourceKvpString("ggquakepacktype")
@@ -56,10 +54,7 @@ RegisterCommand(
         SendChatMessage("Error", "Audio pack must be 'male' or 'female'", {255, 0, 0})
       end
     else
-      print("enabled is " .. tostring(enabled))
-
       enabled = not enabled
-      print("now enabled is " .. tostring(enabled))
       SetResourceKvpInt("ggquakepack", enabled)
 
       local set = "Disabled"
