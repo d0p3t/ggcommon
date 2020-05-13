@@ -278,12 +278,12 @@ local function sortScoreboard(l, r)
         return false
     end
 
-    if l.experience > r.experience then
-        return true
-    end
-    if l.experience < r.experience then
-        return false
-    end
+    -- if l.experience > r.experience then
+    --     return true
+    -- end
+    -- if l.experience < r.experience then
+    --     return false
+    -- end
 
     if l.cash > r.cash then
         return true
@@ -355,12 +355,12 @@ function Scoreboard.AddPlayer(player, playerStats)
             --patreonTier = playerStats.PatreonTier,
             moderator = playerStats.Moderator,
             name = playerName,
-            cash = playerStats.Cash,
+            --cash = playerStats.Cash, -- TEMPORARILY DISABLE
             kdRatio = calculateKdRatio(playerStats.Kills, playerStats.Deaths),
             kills = playerStats.Kills,
             deaths = playerStats.Deaths,
             killstreak = 0,
-            experience = playerStats.Experience,
+            --experience = playerStats.Experience,
             rank = playerStats.Rank
             --prestige = playerStats.Prestige,
         }
@@ -473,8 +473,8 @@ AddEventHandler(
             scoreboard[player].deaths = deaths
             scoreboard[player].kdRatio = calculateKdRatio(scoreboard[player].kills, scoreboard[player].deaths)
             scoreboard[player].killstreak = killstreak
-            scoreboard[player].experience = xp
-            scoreboard[player].cash = cash
+            --scoreboard[player].experience = xp
+            --scoreboard[player].cash = cash
         end
     end
 )
@@ -513,21 +513,21 @@ AddEventHandler(
                     moderator = user.moderator,
                     donator = user.donator,
                     name = GetPlayerName(user.netId),
-                    cash = user.money,
+                    --cash = user.money,
                     kdRatio = calculateKdRatio(user.kills, user.deaths),
                     kills = user.kills,
                     deaths = user.deaths,
                     killstreak = user.killstreak,
-                    experience = user.xp,
+                    --experience = user.xp,
                     rank = calculateRank(user.xp)
                 }
             else
-                scoreboard[user.netId].cash = user.money
+                --scoreboard[user.netId].cash = user.money
                 scoreboard[user.netId].kdRatio = calculateKdRatio(user.kills, user.deaths)
                 scoreboard[user.netId].kills = user.kills
                 scoreboard[user.netId].deaths = user.deaths
                 scoreboard[user.netId].killstreak = user.killstreak
-                scoreboard[user.netId].experience = user.xp
+                --scoreboard[user.netId].experience = user.xp
                 scoreboard[user.netId].rank = calculateRank(user.xp)
             end
         end
