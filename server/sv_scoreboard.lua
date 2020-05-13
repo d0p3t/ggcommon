@@ -285,12 +285,12 @@ local function sortScoreboard(l, r)
     --     return false
     -- end
 
-    if l.cash > r.cash then
-        return true
-    end
-    if l.cash < r.cash then
-        return false
-    end
+    -- if l.cash > r.cash then
+    --     return true
+    -- end
+    -- if l.cash < r.cash then
+    --     return false
+    -- end
 
     if l.kills > r.kills then
         return true
