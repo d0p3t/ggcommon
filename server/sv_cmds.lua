@@ -266,3 +266,18 @@ AddEventHandler(
         recentReports[source] = nil
     end
 )
+
+RegisterCommand("players", function()
+    local players = GetPlayers()
+    if #players > 0 then
+        print('^3-------------------------')
+        print('------ PLAYER LIST ------')
+        print('-------------------------\n')
+        for i,player in ipairs(players) do
+            print('[ID ' .. player .. '] [NAME ' .. GetPlayerName(player) .. ']\n')
+        end
+        print('-----------END-----------^7')
+    else
+        print('[[---- NO PLAYERS ----]]')
+    end
+end, true)
