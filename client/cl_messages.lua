@@ -10,7 +10,7 @@ Citizen.CreateThread(
     Wait(5000)
     for i, message in ipairs(welcomeMessages) do
       TriggerEvent(
-        "chatMessage",
+        "chat:addMessage",
         {
           color = {197, 179, 88},
           multiline = true,
@@ -56,7 +56,7 @@ Citizen.CreateThread(
         periodicMessage = periodicMessages[math.random(#periodicMessages)]
       end
       TriggerEvent(
-        "chatMessage",
+        "chat:addMessage",
         {
           color = {197, 179, 88},
           multiline = true,
@@ -72,11 +72,11 @@ RegisterCommand(
   "discord",
   function()
     TriggerEvent(
-      "chatMessage",
+      "chat:addMessage",
       {
         color = {255, 0, 0},
         multiline = true,
-        args = {"💬 Discord", "https://discord.d0p3t.nl or Invite Code r5q7MHQ"}
+        args = {"💬 Discord - https://discord.d0p3t.nl or Invite Code r5q7MHQ", ""}
       }
     )
   end,
@@ -87,11 +87,11 @@ RegisterCommand(
   "donate",
   function()
     TriggerEvent(
-      "chatMessage",
+      "chat:addMessage",
       {
         color = {255, 0, 0},
         multiline = true,
-        args = {"🙏 Donate", "https://donorbox.org/gun-game"}
+        args = {"🙏 Donate - https://donorbox.org/gun-game", ""}
       }
     )
   end,
