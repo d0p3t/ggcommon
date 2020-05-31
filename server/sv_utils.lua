@@ -35,7 +35,7 @@ function Log(title, message, toDiscord, screenshot)
         }
       }
 
-      if(screenshot ~= nil) then
+      if (screenshot ~= nil) then
         embed[1].image = {
           url = screenshot
         }
@@ -91,17 +91,14 @@ function Screenshot(player)
     {fileName = name},
     function(err, data)
       if err ~= false then
-        Log(
-          "Screenshot",
-          "**Status:** Error \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
-          true
-        )
+        Log("Screenshot", "**Status:** Error \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "", true)
       else
         Log(
           "Screenshot",
           "**Status:** Saved \n**Player:** " ..
             license .. "\n**Filepath:** " .. name .. "\n**URL:** https://gungame.store/screenshots/" .. name .. "",
-          true, "https://gungame.store/screenshots/" .. name .. ""
+          true,
+          "https://gungame.store/screenshots/" .. name .. ""
         )
       end
     end

@@ -47,8 +47,7 @@ end
 
 local function sentryAuthHeader()
   return "Sentry sentry_version=7,sentry_timestamp=" ..
-    os.time() ..
-      ",sentry_key=" .. Config.SentryPub .. ",sentry_secret=" .. Config.SentryPriv .. ",sentry_client=ggcommon/1.0"
+    os.time() .. ",sentry_key=" .. Config.SentryPub .. ",sentry_secret=" .. Config.SentryPriv .. ",sentry_client=ggcommon/1.0"
 end
 
 local function getSDKData()

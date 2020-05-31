@@ -27,7 +27,9 @@ Citizen.CreateThread(
       enabled = false
     end
     pack = GetResourceKvpString("ggquakepacktype")
-    if pack == nil or pack == "" then pack = "male" end
+    if pack == nil or pack == "" then
+      pack = "male"
+    end
   end
 )
 

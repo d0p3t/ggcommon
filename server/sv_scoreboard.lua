@@ -336,20 +336,24 @@ local function calculateKdRatio(kills, deaths)
 end
 
 local function updateScoreboard()
-	local clientScoreboard = { }
+    local clientScoreboard = {}
 
-	for _, player in pairs(scoreboard) do table.insert(clientScoreboard, player) end
+    for _, player in pairs(scoreboard) do
+        table.insert(clientScoreboard, player)
+    end
 
-	table.sort(clientScoreboard, sortScoreboard)
+    table.sort(clientScoreboard, sortScoreboard)
 
-	TriggerClientEvent('gg:updateScoreboard', -1, clientScoreboard)
+    TriggerClientEvent("gg:updateScoreboard", -1, clientScoreboard)
 end
 
 function Scoreboard.AddPlayer(player, playerStats)
     if not scoreboard[player] then
         local playerName = GetPlayerName(player)
 
-        if not playerName then playerName = "" end
+        if not playerName then
+            playerName = ""
+        end
         scoreboard[player] = {
             id = player,
             --patreonTier = playerStats.PatreonTier,
@@ -473,8 +477,8 @@ AddEventHandler(
             scoreboard[player].deaths = deaths
             scoreboard[player].kdRatio = calculateKdRatio(scoreboard[player].kills, scoreboard[player].deaths)
             scoreboard[player].killstreak = killstreak
-            --scoreboard[player].experience = xp
-            --scoreboard[player].cash = cash
+        --scoreboard[player].experience = xp
+        --scoreboard[player].cash = cash
         end
     end
 )
@@ -536,6 +540,9 @@ AddEventHandler(
     end
 )
 
-AddEventHandler('playerDropped', function()
-    scoreboard[source] = nil
-end)
+AddEventHandler(
+    "playerDropped",
+    function()
+        scoreboard[source] = nil
+    end
+)

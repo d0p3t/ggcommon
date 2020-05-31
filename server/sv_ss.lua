@@ -27,17 +27,12 @@ AddEventHandler(
                     print("err", err)
                     Log(
                         "Screenshot",
-                        "**Status:** Error \n**Player:** " ..
-                            license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
+                        "**Status:** Error \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "\n**Error:** " .. err .. "",
                         true
                     )
                 else
                     print("^3[Common] Saved screenshot of " .. license .. " to " .. name .. "^7")
-                    Log(
-                        "Screenshot",
-                        "**Status:** Saved \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "",
-                        true
-                    )
+                    Log("Screenshot", "**Status:** Saved \n**Player:** " .. license .. "\n**Filepath:** " .. name .. "", true)
                 end
             end
         )

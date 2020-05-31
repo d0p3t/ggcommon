@@ -17,7 +17,7 @@ Citizen.CreateThread(
           local isDead = IsPlayerDead(player)
           local ped = GetPlayerPed(player)
           local pedCoords = GetEntityCoords(ped)
-          local isHealthBarVisible = not isDead and IsPlayerFreeAimingAtEntity(myPlayer, ped) 
+          local isHealthBarVisible = not isDead and IsPlayerFreeAimingAtEntity(myPlayer, ped)
           local isDonator = false
           local isModerator = false
           -- only continue if this player is on the scoreboard already
@@ -51,7 +51,7 @@ Citizen.CreateThread(
             SetMpGamerTagColour(gamerTag, 4, color)
             SetMpGamerTagColour(gamerTag, 10, color)
             SetMpGamerTagHealthBarColour(gamerTag, 18)
-  
+
             SetMpGamerTagAlpha(gamerTag, 0, 255)
             SetMpGamerTagAlpha(gamerTag, 2, 255)
             SetMpGamerTagAlpha(gamerTag, 4, 255)
@@ -64,14 +64,14 @@ Citizen.CreateThread(
 
           if distance < 100 and HasEntityClearLosToEntity(myPed, ped, 17) then
             local isTalking = NetworkIsPlayerTalking(player)
-            
+
             SetMpGamerTagColour(gamerTag, 10, color)
             SetMpGamerTagColour(gamerTag, 4, color)
             SetMpGamerTagVisibility(gamerTag, 0, isHealthBarVisible) -- GAMER_NAME
             SetMpGamerTagVisibility(gamerTag, 2, isHealthBarVisible) -- HEALTH/ARMOR
             SetMpGamerTagVisibility(gamerTag, 4, isHealthBarVisible and isTalking) -- AUDIO_ICON
 
-            if(isDonator or isModerator) then
+            if (isDonator or isModerator) then
               SetMpGamerTagVisibility(gamerTag, 10, isHealthBarVisible and (isDonator or isModerator)) -- MP_TAGGED CIRCLE
             else
               SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
@@ -80,14 +80,13 @@ Citizen.CreateThread(
             SetMpGamerTagVisibility(gamerTag, 0, false) -- GAMER_NAME
             SetMpGamerTagVisibility(gamerTag, 2, false) -- HEALTH/ARMOR
             SetMpGamerTagVisibility(gamerTag, 4, false) -- AUDIO_ICON
-            SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE               
+            SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
           end
         elseif gamerTags[player] then
           RemoveMpGamerTag(gamerTags[player].tag)
           gamerTags[player] = nil
         end
       end
-
     end
   end
 )

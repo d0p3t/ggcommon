@@ -66,8 +66,7 @@ function uuid.new(hwaddr)
         end
         assert(
             #hwaddr == 12,
-            "Provided string did not contain at least 12 hex characters, retrieved '" ..
-                hwaddr .. "' from '" .. str .. "'"
+            "Provided string did not contain at least 12 hex characters, retrieved '" .. hwaddr .. "' from '" .. str .. "'"
         )
         bytes[11] = to_number(hwaddr:sub(1, 2), 16)
         bytes[12] = to_number(hwaddr:sub(3, 4), 16)
@@ -97,8 +96,7 @@ function uuid.new(hwaddr)
                                                             INT2HEX(bytes[11]) ..
                                                                 INT2HEX(bytes[12]) ..
                                                                     INT2HEX(bytes[13]) ..
-                                                                        INT2HEX(bytes[14]) ..
-                                                                            INT2HEX(bytes[15]) .. INT2HEX(bytes[16])
+                                                                        INT2HEX(bytes[14]) .. INT2HEX(bytes[15]) .. INT2HEX(bytes[16])
 end
 
 function uuid.randomseed(seed)
