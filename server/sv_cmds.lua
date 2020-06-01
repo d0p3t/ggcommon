@@ -61,7 +61,9 @@ RegisterCommand(
         local live = ""
         local fivem = ""
 
-        for k, v in pairs(GetPlayerIdentifiers(reporting)) do
+        local identifiers = GetPlayerIdentifiers(reporting)
+        for i = 1, #identifiers do
+            local v = identifiers[i]
             if string.sub(v, 1, string.len("steam:")) == "steam:" then
                 steam = v
             elseif string.sub(v, 1, string.len("license:")) == "license:" then
@@ -220,7 +222,9 @@ RegisterCommand(
         local live = ""
         local fivem = ""
 
-        for k, v in pairs(GetPlayerIdentifiers(netId)) do
+        local identifiers = GetPlayerIdentifiers(netId)
+        for i = 1, #identifiers do
+            local v = identifiers[i]
             if string.sub(v, 1, string.len("steam:")) == "steam:" then
                 steam = v
             elseif string.sub(v, 1, string.len("license:")) == "license:" then
@@ -275,7 +279,9 @@ RegisterCommand(
             print("^3-------------------------")
             print("------ PLAYER LIST ------")
             print("-------------------------\n")
-            for i, player in ipairs(players) do
+
+            for i = 1, #players do
+                local player = players[i]
                 print("[ID " .. player .. "] [NAME " .. GetPlayerName(player) .. "]\n")
             end
             print("-----------END-----------^7")

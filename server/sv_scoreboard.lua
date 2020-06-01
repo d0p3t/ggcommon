@@ -338,7 +338,8 @@ end
 local function updateScoreboard()
     local clientScoreboard = {}
 
-    for _, player in pairs(scoreboard) do
+    for i = 1, #scoreboard do
+        local player = scoreboard[i]
         table.insert(clientScoreboard, player)
     end
 

@@ -60,7 +60,8 @@ AddEventHandler(
     function()
         if (FirstSpawn) then
             local count = 0
-            for i, scenario in ipairs(Scenarios) do
+            for i = 1, #Scenarios do
+                local scenario = Scenarios[i]
                 SetScenarioTypeEnabled(scenario, false)
                 count = count + 1
             end

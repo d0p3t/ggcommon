@@ -9,8 +9,9 @@ Citizen.CreateThread(
       local myPed = PlayerPedId()
       local myPlayer = PlayerId()
       local myCoords = GetEntityCoords(myPed)
-
-      for _, player in ipairs(GetActivePlayers()) do
+      local players = GetActivePlayers()
+      for i = 1, #players do
+        local player = players[i]
         if player ~= myPlayer then
           local data = Scoreboard.GetPlayer(player)
 

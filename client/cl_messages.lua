@@ -8,7 +8,8 @@ local welcomeMessages = {
 Citizen.CreateThread(
   function()
     Wait(5000)
-    for i, message in ipairs(welcomeMessages) do
+    for i = 1, #welcomeMessages do
+      local message = welcomeMessages[i]
       TriggerEvent(
         "chat:addMessage",
         {

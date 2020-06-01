@@ -10,7 +10,8 @@ AddEventHandler(
         local identifiers = GetPlayerIdentifiers(player)
         local license = 0
 
-        for k, v in pairs(identifiers) do
+        for i = 1, #identifiers do
+            local v = identifiers[i]
             if string.sub(v, 1, string.len("license:")) == "license:" then
                 license = string.sub(v, string.len("license:") + 1)
                 break
