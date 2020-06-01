@@ -12,7 +12,6 @@ RegisterNetEvent('spawn')
 AddEventHandler('spawn', function()
   for i = 1, #stats do
     local stat = stats[i]
-    print(stat)
     StatSetInt(stat, 100, false)
   end
 end)
