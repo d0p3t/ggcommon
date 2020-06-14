@@ -22,10 +22,11 @@ Citizen.CreateThread(
 
     SetRadarBigmapEnabled(true, false)
     Wait(500)
-    SetRadarBigmapEnabled(false, false)
+    --SetRadarBigmapEnabled(false, false)
 
     while true do
       Wait(0)
+      SetRadarBigmapEnabled(false, false)
       BeginScaleformMovieMethod(minimap, "SETUP_HEALTH_ARMOUR")
       ScaleformMovieMethodAddParamInt(3)
       EndScaleformMovieMethod()
