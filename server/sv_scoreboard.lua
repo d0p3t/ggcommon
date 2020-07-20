@@ -338,8 +338,7 @@ end
 local function updateScoreboard()
     local clientScoreboard = {}
 
-    for i = 1, #scoreboard do
-        local player = scoreboard[i]
+    for _, player in pairs(scoreboard) do
         table.insert(clientScoreboard, player)
     end
 
@@ -508,8 +507,10 @@ end
 AddEventHandler(
     "ggcommon:scoreboardUpdateAll",
     function(serialized)
+        print('yeah hi');
         local data = json.decode(serialized)
 
+        print(serialized)
         for _, user in pairs(data) do
             if not scoreboard[user.netId] then
                 scoreboard[user.netId] = {
