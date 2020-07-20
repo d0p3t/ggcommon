@@ -507,10 +507,8 @@ end
 AddEventHandler(
     "ggcommon:scoreboardUpdateAll",
     function(serialized)
-        print('yeah hi');
         local data = json.decode(serialized)
 
-        print(serialized)
         for _, user in pairs(data) do
             if not scoreboard[user.netId] then
                 scoreboard[user.netId] = {
