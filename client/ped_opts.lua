@@ -35,6 +35,8 @@ Citizen.CreateThread(
             SetVehicleDensityMultiplierThisFrame(0.0)
             SetParkedVehicleDensityMultiplierThisFrame(0.0)
             SetRandomVehicleDensityMultiplierThisFrame(0.0)
+            SetDeepOceanScaler(0.0)
+            N_0xc54a08c85ae4d410(1.0)
             HideHudComponentThisFrame(6)
             HideHudComponentThisFrame(7)
             HideHudComponentThisFrame(8)
