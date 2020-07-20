@@ -20,7 +20,10 @@ server_scripts {
 files {
 	'client/lib/Newtonsoft.Json.dll',
 	'client/lib/index.html',
-	'client/lib/audio/**/*.ogg'
+    'client/lib/audio/**/*.ogg',
+    'client/lib/*.min.css',
+    'client/lib/*.css',
+    'client/lib/*.min.js'
 }
 
 ui_page 'client/lib/index.html'

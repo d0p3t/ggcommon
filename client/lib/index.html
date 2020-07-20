@@ -1,20 +1,46 @@
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="nui://ggcommon/client/lib/toastify.min.css">
+        <link rel="stylesheet" type="text/css" href="nui://ggcommon/client/lib/style.css">
         <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
-        <script>
-            var audioPlayer = null;
-            window.addEventListener('message', function(event) {
-              console.log(event)
-                if (event.data.type == "ggsound") {
-                  if (audioPlayer != null) {
-                    audioPlayer.pause();
-                  }
-
-                  audioPlayer = new Audio("./audio/" + event.data.transactionPack + '/' + event.data.transactionFile + ".ogg");
-                  audioPlayer.volume = 0.5;
-                  audioPlayer.play();
-                }
-            });
-        </script>
     </head>
+    <body>
+      <script type="text/javascript" src="nui://ggcommon/client/lib/toastify.min.js"></script>
+      <script>
+        function ShowToaster(text,isTop, position) {
+          Toastify({
+            text: text,
+            duration: 5000, 
+            destination: "about:blank",
+            newWindow: true,
+            close: false,
+            gravity: isTop ? "top" : "bottom", // `top` or `bottom`
+            position: position, // `left`, `center` or `right`
+            backgroundColor: "linear-gradient(to right, #91896e, #a3a488)",
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            onClick: function(){} // Callback after click
+          }).showToast();
+        }
+
+          var audioPlayer = null;
+          window.addEventListener('message', function(event) {
+              if (event.data.type == "ggsound") {
+                if (audioPlayer != null) {
+                  audioPlayer.pause();
+                }
+
+                audioPlayer = new Audio("./audio/" + event.data.transactionPack + '/' + event.data.transactionFile + ".ogg");
+                audioPlayer.volume = 0.5;
+                audioPlayer.play();
+              }
+              else if(event.data.type == "ggtoaster") {
+                var text = event.data.toasterMessage;
+                var isTop = event.data.toasterTop;
+                var position = event.data.toasterPosition;
+
+                ShowToaster(text,isTop, position);
+              }
+          });
+      </script>
+    </body>
 </html>
