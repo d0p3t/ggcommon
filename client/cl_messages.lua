@@ -1,13 +1,15 @@
-local welcomeMessages = {
-  "👑 Welcome to Gun Game," .. GetPlayerName(PlayerId()) .. "!",
-  "🙏 Donations - https://donorbox.org/gun-game",
-  "💬 Discord - https://discord.d0p3t.nl or Invite Code r5q7MHQ",
-  "🧡 Servers - We have servers in EU, Brazil and USA"
-}
-
 Citizen.CreateThread(
   function()
     Wait(5000)
+
+    local welcomeMessages = {
+      "👑 Welcome to Gun Game," .. GetPlayerName(PlayerId()) .. "!",
+      "🙏 Donations - https://donorbox.org/gun-game",
+      "💬 Discord - https://discord.d0p3t.nl or Invite Code r5q7MHQ",
+      "🧡 Servers - We have servers in EU, Brazil and USA",
+      "👕 Outfits - Type /claim for FREE outfits and /outfits to list"
+    }
+
     for i = 1, #welcomeMessages do
       local message = welcomeMessages[i]
       TriggerEvent(
@@ -24,14 +26,18 @@ Citizen.CreateThread(
 
 local periodicMessages = {
   "🤬 See a cheater? Report them with /report [id] [reason]",
+  "🤬 See a cheater? Report them with /report [id] [reason]",
+  "🤬 See a cheater? Report them with /report [id] [reason]",
+  "🤬 See a cheater? Report them with /report [id] [reason]",
+  "🤬 See a cheater? Report them with /report [id] [reason]",
   "Increase your weapon level by getting kills 🔫",
   "Respawn faster using your 🖱️",
-  "Join our Discord https://discord.d0p3t.nl or Invite Code r5q7MHQ",
+  "🎮 Join our Discord https://discord.d0p3t.nl or Invite Code r5q7MHQ",
   "Got any suggestions? Leave them on our Discord",
   "🐓 Winner, winner, chicken dinner! Or not...",
   "Don't give up 🤬",
   "🐞 Found a bug? Report it on our Discord",
-  "📜 Press Z to bring up the scoreboard",
+  "📜 Hold Z to bring up the scoreboard",
   "Check if a player dies before accussing them of cheating.",
   "Always treat people the way you want to be treated ❣️",
   "You win some, you lose... a lot 😥",
@@ -41,8 +47,12 @@ local periodicMessages = {
   "You cannot choose weapons. Progress by getting kills 🔫",
   "🙏 Support & Donate on https://donorbox.org/gun-game",
   "🙏 Want lower pings? Donate so we can open up new servers https://donorbox.org/gun-game",
-  "🙏 Donate and get an 👑 EXCLUSIVE SKIN 👑! https://donorbox.org/gun-game",
-  "🧡 Look for our other servers in EU, Brazil or USA on the server list"
+  "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://donorbox.org/gun-game",
+  "🧡 Look for our other servers in EU, Brazil or USA on the server list",
+  "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
+  "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
+  "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
+  "You cannot spend your 💰 money yet, but you can /claim free 👕 outfits!"
 }
 
 local interval = 5
@@ -92,7 +102,7 @@ RegisterCommand(
       {
         color = {255, 0, 0},
         multiline = true,
-        args = {"🙏 Donate - https://donorbox.org/gun-game", ""}
+        args = {"🙏 Donate - Keep the server running by donating to https://donorbox.org/gun-game", ""}
       }
     )
   end,
