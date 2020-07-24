@@ -3,11 +3,11 @@ Citizen.CreateThread(
     Wait(5000)
 
     local welcomeMessages = {
-      "👑 Welcome to Gun Game," .. GetPlayerName(PlayerId()) .. "!",
-      "🙏 Donations - https://donorbox.org/gun-game",
-      "💬 Discord - https://discord.d0p3t.nl or Invite Code r5q7MHQ",
+      "👑 Welcome to Gun Game V, ^7" .. GetPlayerName(PlayerId()) .. "!",
+      "🙏 Donations - https://donate.gungame.store",
+      "💬 Discord - https://discord.gungame.store or Invite Code r5q7MHQ",
       "🧡 Servers - We have servers in EU, Brazil and USA",
-      "👕 Outfits - Type /claim for FREE outfits and /outfits to list"
+      "👕 Outfits - ^7Type ^2/claim^7 for FREE outfits and ^2/outfits^7 to list"
     }
 
     for i = 1, #welcomeMessages do
@@ -32,7 +32,7 @@ local periodicMessages = {
   "🤬 See a cheater? Report them with /report [id] [reason]",
   "Increase your weapon level by getting kills 🔫",
   "Respawn faster using your 🖱️",
-  "🎮 Join our Discord https://discord.d0p3t.nl or Invite Code r5q7MHQ",
+  "🎮 Join our Discord https://discord.gungame.store or Invite Code r5q7MHQ",
   "Got any suggestions? Leave them on our Discord",
   "🐓 Winner, winner, chicken dinner! Or not...",
   "Don't give up 🤬",
@@ -41,13 +41,13 @@ local periodicMessages = {
   "Check if a player dies before accussing them of cheating.",
   "Always treat people the way you want to be treated ❣️",
   "You win some, you lose... a lot 😥",
-  "🙏 Want to support us? Donate on https://donorbox.org/gun-game",
+  "🙏 Want to support us? Donate on https://donate.gungame.store",
   "Did you spawn under the map or inside a wall? /suicide to respawn",
   "Gain XP by killing other players 🔫",
   "You cannot choose weapons. Progress by getting kills 🔫",
-  "🙏 Support & Donate on https://donorbox.org/gun-game",
-  "🙏 Want lower pings? Donate so we can open up new servers https://donorbox.org/gun-game",
-  "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://donorbox.org/gun-game",
+  "🙏 Support & Donate on https://donate.gungame.store",
+  "🙏 Want lower pings? Donate so we can open up new servers https://donate.gungame.store",
+  "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://donate.gungame.store",
   "🧡 Look for our other servers in EU, Brazil or USA on the server list",
   "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
   "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
