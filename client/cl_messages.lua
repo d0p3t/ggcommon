@@ -55,7 +55,7 @@ local periodicMessages = {
   "You cannot spend your 💰 money yet, but you can /claim free 👕 outfits!",
   "👕 Did you lose your outfits? Claim them with /claim",
   "👕 Did you lose your outfits? Claim them with /claim",
-  "👕 Did you lose your outfits? Claim them with /claim"
+  "👕 Get new outfits at level 10, 25, 50, 75, 100, 150 with /claim"
 }
 
 local interval = 5
