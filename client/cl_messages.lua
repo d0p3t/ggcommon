@@ -52,7 +52,10 @@ local periodicMessages = {
   "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
   "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
   "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
-  "You cannot spend your 💰 money yet, but you can /claim free 👕 outfits!"
+  "You cannot spend your 💰 money yet, but you can /claim free 👕 outfits!",
+  "👕 Did you lose your outfits? Claim them with /claim",
+  "👕 Did you lose your outfits? Claim them with /claim",
+  "👕 Did you lose your outfits? Claim them with /claim"
 }
 
 local interval = 5
