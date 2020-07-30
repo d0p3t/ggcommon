@@ -128,6 +128,11 @@ AddEventHandler(
         reason ~= "Connecting to another server." and
         reason ~= "Timed out after 60 seconds." and
         reason ~= "Game crashed: leopard-crazy-table (GTA5+7A6478)" and
+        reason ~= "Le jeu a cessé de fonctionner : leopard-crazy-table (GTA5+7A6478)" and
+        reason ~= "Game crashed: table-music-pip (GTA5+5FE118)" and
+        reason ~= "Game crashed: red-low-lima (GTA5+7A6472)" and
+        reason ~= "Game crashed: jersey-green-black (GTA5+1571F45)" and
+        reason ~= "Game crashed: pip-yellow-mango (GTA5+8D5451)" and
         string.find(reason, "banned") == nil and
         string.find(reason, "kicked") == nil and
         string.find(reason, "Could not connect to session provider.") == nil and
