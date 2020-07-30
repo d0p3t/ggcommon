@@ -16,3 +16,9 @@ AddEventHandler(
     end
   end
 )
+
+Citizen.CreateThread(
+  function()
+    AddTextEntry("FE_THDR_GTAO", "Gun Game V")
+  end
+)
