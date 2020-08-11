@@ -28,6 +28,9 @@ AddEventHandler(
 
 Citizen.CreateThread(
     function()
+        Wait(0)
+        SetPedPopulationBudget(0.0)
+        SetVehiclePopulationBudget(0.0)
         while true do
             Wait(0)
             SetPedDensityMultiplierThisFrame(0.0)

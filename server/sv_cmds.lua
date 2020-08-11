@@ -1,8 +1,5 @@
 local recentReports = {}
 
-local function GetIdentifiers(player)
-end
-
 RegisterCommand(
     "report",
     function(source, args, raw)

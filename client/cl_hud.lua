@@ -19,6 +19,7 @@ AddEventHandler(
 
 Citizen.CreateThread(
   function()
+    Wait(0)
     AddTextEntry("FE_THDR_GTAO", "Gun Game V")
   end
 )
