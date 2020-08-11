@@ -122,7 +122,7 @@ function SentryIssue(errorType, error, level, tags, source)
   }
 
   PerformHttpRequest(
-    "https://sentry.io/api/" .. Config.SentryId .. "/store/",
+    "https://sentry.d0p3t.nl/api/" .. Config.SentryId .. "/store/",
     function(statusCode, data, headers)
       if statusCode ~= 200 then
         PrintLog("" .. statusCode .. "Error occurred when sending Issue to Sentry -> " .. data .. "", "error")
