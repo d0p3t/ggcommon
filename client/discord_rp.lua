@@ -14,6 +14,7 @@ Citizen.CreateThread(
         while true do
             local numPlayers = #GetActivePlayers()
             SetRichPresence("" .. numPlayers .. "/32 Players")
+            SetPlayerTargetingMode(2)
             Citizen.Wait(10000)
         end
     end
