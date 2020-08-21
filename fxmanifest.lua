@@ -10,7 +10,7 @@ dependency "screenshot-basic"
 
 client_scripts {
     "client/*.lua",
-    "client/*.net.dll"
+    --"client/*.net.dll"
 }
 
 server_scripts {
