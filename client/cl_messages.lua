@@ -6,8 +6,8 @@ Citizen.CreateThread(
       "👑 Welcome to Gun Game V, ^7" .. GetPlayerName(PlayerId()) .. "!",
       "🙏 Donations - https://donate.gungame.store",
       "💬 Discord - https://discord.gungame.store or Invite Code r5q7MHQ",
-      "🧡 Servers - We have servers in EU, Brazil and USA",
-      "👕 Outfits - ^7Type ^2/claim^7 for FREE outfits and ^2/outfits^7 to list"
+      "🧡 Servers - Our servers are in #1 (EU) #2 (EU) #3 (USA)",
+      "👕 Outfits - ^7Press ^2HOME^7 or type ^2/shop^7 for OUTFIT SHOP!"
     }
 
     for i = 1, #welcomeMessages do
@@ -49,13 +49,14 @@ local periodicMessages = {
   "🙏 Want lower pings? Donate so we can open up new servers https://donate.gungame.store",
   "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://donate.gungame.store",
   "🧡 Look for our other servers in EU, Brazil or USA on the server list",
-  "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
-  "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
-  "👕 Outfits - Type /claim for FREE outfits and /outfits to list",
-  "You cannot spend your 💰 money yet, but you can /claim free 👕 outfits!",
-  "👕 Did you lose your outfits? Claim them with /claim",
-  "👕 Did you lose your outfits? Claim them with /claim",
-  "👕 Get new outfits at level 10, 25, 50, 75, 100, 150 with /claim"
+  "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
+  "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
+  "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
+  "You can spend your 💰 money in our 👕 Shop! Press HOME",
+  "👕 Did you lose your outfits? Claim them at our /shop",
+  "👕 Did you lose your outfits? Claim them at our /shop",
+  "👕 Get new outfits at certain levels in our shop",
+  "👕 Spend your $ in our shop - Press HOME or /shop to open"
 }
 
 local interval = 5
