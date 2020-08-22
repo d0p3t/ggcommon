@@ -87,24 +87,26 @@ local deathsScale = 0.2625
 local killstreakScale = 0.2625
 
 -- Colors
-local tableHeaderColor = {["r"] = 131, ["g"] = 123, ["b"] = 99, ["a"] = 255}
+-- local tableHeaderColor = {["r"] = 131, ["g"] = 123, ["b"] = 99, ["a"] = 255}
+local tableHeaderColor = {["r"] = 93, ["g"] = 64, ["b"] = 55, ["a"] = 255}
+
 local tableHeaderTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
 local tablePositionTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
-local tableCashColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 160}
+local tableCashColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 180}
 local tableCashTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
-local tableKdRatioColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 160}
+local tableKdRatioColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 180}
 local tableKdRatioTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
-local tableKillsColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 160}
+local tableKillsColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 180}
 local tableKillsTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
-local tableDeathsColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 160}
+local tableDeathsColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 180}
 local tableDeathsTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
-local tableKillstreakColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 160}
+local tableKillstreakColor = {["r"] = 0, ["g"] = 0, ["b"] = 0, ["a"] = 180}
 local tableKillstreakTextColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
 
 local activeVoiceIndicatorColor = {["r"] = 255, ["g"] = 255, ["b"] = 255, ["a"] = 255}
@@ -196,7 +198,7 @@ function Scoreboard.DisplayThisFrame()
 	Gui.DrawText("KILLSTREAK", {["x"] = tableKillstreakHeader.x, ["y"] = tableHeaderText.y})
 
 	local tablePosition = {["y"] = tablePositionHeader.y + tableHeight + headerTableSpacing}
-	local tableAvatarPositionWidth = (tableHeight * 9 / 16)
+	local tableAvatarPositionWidth = (tableHeight * 9 / 12)
 
 	local myPlayerId = PlayerId()
 	table.foreach(
@@ -204,9 +206,9 @@ function Scoreboard.DisplayThisFrame()
 		function(player)
 			local avatarPosition = {["x"] = scoreboardPosition.x + tableAvatarPositionWidth / 2, ["y"] = tablePosition.y}
 			local playerPosition = {["x"] = avatarPosition.x + tablePositionWidth / 2, ["y"] = tablePosition.y}
-			local voiceIndicatorPosition = {["x"] = (scoreboardPosition.x + tableAvatarPositionWidth / 2) + 0.015, ["y"] = tablePosition.y}
+			local voiceIndicatorPosition = {["x"] = (scoreboardPosition.x + tableAvatarPositionWidth / 2) + 0.017, ["y"] = tablePosition.y}
 			local rankPosition = {
-				["x"] = (scoreboardPosition.x + tableAvatarPositionWidth / 2 + voiceIndicatorWidth) + 0.015,
+				["x"] = (scoreboardPosition.x + tableAvatarPositionWidth / 2 + voiceIndicatorWidth) + 0.017,
 				["y"] = tablePosition.y + 0.001
 			}
 			local playerNamePosition = {
@@ -355,7 +357,7 @@ end
 Citizen.CreateThread(
 	function()
 		while true do
-			Citizen.Wait(0)
+			Wait(0)
 			if IsControlPressed(0, 20) then
 				Scoreboard.DisplayThisFrame()
 			end
