@@ -3,7 +3,7 @@
 ]]
 function Respawn()
   local ped = PlayerPedId()
-  SetEntityInvincible(ped, true)
+  SetEntityInvincible(ped, false)
   SetEntityHealth(ped, 0)
 end
 
