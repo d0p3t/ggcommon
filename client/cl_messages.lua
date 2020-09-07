@@ -41,13 +41,13 @@ local periodicMessages = {
   "Check if a player dies before accussing them of cheating.",
   "Always treat people the way you want to be treated ❣️",
   "You win some, you lose... a lot 😥",
-  "🙏 Want to support us? Donate on https://donate.gungame.store",
+  "🙏 Want to support us? Donate on https://beta.gungame.store",
   "Did you spawn under the map or inside a wall? /suicide to respawn",
   "Gain XP by killing other players 🔫",
   "You cannot choose weapons. Progress by getting kills 🔫",
-  "🙏 Support & Donate on https://donate.gungame.store",
-  "🙏 Want lower pings? Donate so we can open up new servers https://donate.gungame.store",
-  "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://donate.gungame.store",
+  "🙏 Support & Donate on https://beta.gungame.store",
+  "🙏 Want lower pings? Donate so we can open up new servers https://beta.gungame.store",
+  "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://beta.gungame.store",
   "🧡 Look for our other servers in EU, Brazil or USA on the server list",
   "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
   "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
@@ -56,7 +56,13 @@ local periodicMessages = {
   "👕 Did you lose your outfits? Claim them at our /shop",
   "👕 Did you lose your outfits? Claim them at our /shop",
   "👕 Get new outfits at certain levels in our shop",
-  "👕 Spend your $ in our shop - Press HOME or /shop to open"
+  "👕 Spend your $ in our shop - Press HOME or /shop to open",
+  "👕 Get XP, Currency, Exclusive outfits and more at https://beta.gungame.store!",
+  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
+  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
+  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
+  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
+  "👕 Don't want to wait in queue? Queue passes for as low as $2.00 https://beta.gungame.store"
 }
 
 local interval = 5
@@ -91,7 +97,7 @@ RegisterCommand(
       {
         color = {255, 0, 0},
         multiline = true,
-        args = {"💬 Discord - https://discord.d0p3t.nl or Invite Code r5q7MHQ", ""}
+        args = {"💬 Discord - https://discord.gungame.store or Invite Code r5q7MHQ", ""}
       }
     )
   end,
@@ -106,7 +112,7 @@ RegisterCommand(
       {
         color = {255, 0, 0},
         multiline = true,
-        args = {"🙏 Donate - Keep the server running by donating to https://donorbox.org/gun-game", ""}
+        args = {"🙏 Donate - Keep the server running by donating to https://beta.gungame.store", ""}
       }
     )
   end,
