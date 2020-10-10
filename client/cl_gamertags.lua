@@ -1,37 +1,22 @@
 -- Modified from https://github.com/citizenfx/cfx-server-data/blob/master/resources/%5Bgameplay%5D/playernames/playernames_cl.lua
 local gamerTags = {}
-local myPed = PlayerPedId()
-local myPlayer = PlayerId()
-local myCoords = GetEntityCoords(myPed)
-local players = GetActivePlayers()
 
-Citizen.CreateThread(
-  function()
-    while true do
-      Wait(250)
-      myPed = PlayerPedId()
-      myPlayer = PlayerId()
-      myCoords = GetEntityCoords(myPed)
-      players = GetActivePlayers()
-    end
-  end
-)
 Citizen.CreateThread(
   function()
     Wait(5000)
 
     while true do
-      Wait(0)
-      for i = 1, #players do
-        local player = players[i]
+      Wait(500)
+      myPed = PlayerPedId()
+      myPlayer = PlayerId()
+      myCoords = GetEntityCoords(myPed)
+      for _, player in ipairs(GetActivePlayers()) do
         if player ~= myPlayer then
-          local isDead = IsPlayerDead(player)
           local ped = GetPlayerPed(player)
           local pedCoords = GetEntityCoords(ped)
-
           local distance = #(pedCoords - myCoords)
 
-          if distance < 900 then
+          if distance < 500 then
             local isDonator = false
             local isModerator = false
             -- only continue if this player is on the scoreboard already
@@ -49,24 +34,15 @@ Citizen.CreateThread(
               color = 21
             end
 
-            if not gamerTags[player] or gamerTags[player].ped ~= ped or not IsMpGamerTagActive(gamerTags[player].tag) then
-              if gamerTags[player] then
-                RemoveMpGamerTag(gamerTags[player].tag)
-              end
-
+            if not gamerTags[player] then
               gamerTags[player] = {
-                tag = CreateFakeMpGamerTag(ped, GetPlayerName(player), false, false, "", 0),
+                tag = CreateFakeMpGamerTag(ped, "#" .. tostring(GetPlayerServerId(player)) .. " " .. GetPlayerName(player), false, false, "", 0),
                 ped = ped
               }
               local gamerTag = gamerTags[player].tag
-
-              -- SetMpGamerTagName(gamerTags[player].tag, GetPlayerName(player))
               SetMpGamerTagColour(gamerTag, 0, 0)
               SetMpGamerTagColour(gamerTag, 2, 18)
-              SetMpGamerTagColour(gamerTag, 4, color)
-              SetMpGamerTagColour(gamerTag, 10, color)
               SetMpGamerTagHealthBarColour(gamerTag, 18)
-
               SetMpGamerTagAlpha(gamerTag, 0, 255)
               SetMpGamerTagAlpha(gamerTag, 2, 255)
               SetMpGamerTagAlpha(gamerTag, 4, 255)
@@ -77,6 +53,7 @@ Citizen.CreateThread(
 
             if distance < 100 and HasEntityClearLosToEntity(myPed, ped, 17) then
               local isTalking = NetworkIsPlayerTalking(player)
+              local isDead = IsPlayerDead(player)
               local isHealthBarVisible = not isDead and IsPlayerFreeAimingAtEntity(myPlayer, ped)
               SetMpGamerTagColour(gamerTag, 10, color)
               SetMpGamerTagColour(gamerTag, 4, color)
@@ -84,7 +61,7 @@ Citizen.CreateThread(
               SetMpGamerTagVisibility(gamerTag, 2, isHealthBarVisible) -- HEALTH/ARMOR
               SetMpGamerTagVisibility(gamerTag, 4, isHealthBarVisible and isTalking) -- AUDIO_ICON
 
-              if (isDonator or isModerator) then
+              if isDonator or isModerator then
                 SetMpGamerTagVisibility(gamerTag, 10, isHealthBarVisible and (isDonator or isModerator)) -- MP_TAGGED CIRCLE
               else
                 SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
@@ -95,10 +72,10 @@ Citizen.CreateThread(
               SetMpGamerTagVisibility(gamerTag, 4, false) -- AUDIO_ICON
               SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
             end
+          elseif gamerTags[player] then
+            RemoveMpGamerTag(gamerTags[player].tag)
+            gamerTags[player] = nil
           end
-        elseif gamerTags[player] then
-          RemoveMpGamerTag(gamerTags[player].tag)
-          gamerTags[player] = nil
         end
       end
     end
