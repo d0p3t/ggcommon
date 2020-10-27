@@ -4,10 +4,10 @@ Citizen.CreateThread(
 
     local welcomeMessages = {
       "👑 Welcome to Gun Game V, ^7" .. GetPlayerName(PlayerId()) .. "!",
-      "🙏 Donations - https://donate.gungame.store",
-      "💬 Discord - https://discord.gungame.store or Invite Code r5q7MHQ",
-      "🧡 Servers - Our servers are in #1 (EU) #2 (EU) #3 (USA)",
-      "👕 Outfits - ^7Press ^2HOME^7 or type ^2/shop^7 for OUTFIT SHOP!"
+      "🛒 Store - ^2https://beta.gungame.store^7",
+      "🎮 Discord - ^2https://discord.gg/r5q7MHQ^7",
+      "🧡 Servers - #1 (EU) #2 (EU) #3 (USA)",
+      "👕 Outfits - ^7Press ^2HOME^7 or type ^2/shop^7"
     }
 
     for i = 1, #welcomeMessages do
@@ -15,7 +15,8 @@ Citizen.CreateThread(
       TriggerEvent(
         "chat:addMessage",
         {
-          color = {197, 179, 88},
+          templateId = "welcome",
+          color = {255, 255, 255},
           multiline = true,
           args = {message, ""}
         }
@@ -25,44 +26,32 @@ Citizen.CreateThread(
 )
 
 local periodicMessages = {
-  "🤬 See a cheater? Report them with /report [id] [reason]",
-  "🤬 See a cheater? Report them with /report [id] [reason]",
-  "🤬 See a cheater? Report them with /report [id] [reason]",
-  "🤬 See a cheater? Report them with /report [id] [reason]",
-  "🤬 See a cheater? Report them with /report [id] [reason]",
+  "See a cheater? 🤬 Report them with ^1/report [id] [reason]^7",
+  "See a cheater? 🤬 Report them with ^1/report [id] [reason]^7",
+  "See a cheater? 🤬 Report them with ^1/report [id] [reason]^7",
   "Increase your weapon level by getting kills 🔫",
-  "Respawn faster using your 🖱️",
-  "🎮 Join our Discord https://discord.gungame.store or Invite Code r5q7MHQ",
-  "Got any suggestions? Leave them on our Discord",
+  "Respawn faster by clicking your mouse 🖱️",
+  "🎮 Join our Discord ^2https://discord.gg/r5q7MHQ^7",
   "🐓 Winner, winner, chicken dinner! Or not...",
-  "Don't give up 🤬",
-  "🐞 Found a bug? Report it on our Discord",
-  "📜 Hold Z to bring up the scoreboard",
+  "Don't give up! Practice makes perfect 💪",
+  "Found a bug? 🐛 Report it on our Discord",
+  "📜 Hold ^1Z^7 to bring up the scoreboard",
   "Check if a player dies before accussing them of cheating.",
   "Always treat people the way you want to be treated ❣️",
   "You win some, you lose... a lot 😥",
-  "🙏 Want to support us? Donate on https://beta.gungame.store",
-  "Did you spawn under the map or inside a wall? /suicide to respawn",
+  "🛒 Want to support us? ^2https://beta.gungame.store^7",
+  "Did you spawn under the map or inside a wall? ^1/die^7 to respawn",
   "Gain XP by killing other players 🔫",
   "You cannot choose weapons. Progress by getting kills 🔫",
-  "🙏 Support & Donate on https://beta.gungame.store",
-  "🙏 Want lower pings? Donate so we can open up new servers https://beta.gungame.store",
-  "🙏 Donate and get an 👑 EXCLUSIVE HALO OUTFIT 👑! https://beta.gungame.store",
-  "🧡 Look for our other servers in EU, Brazil or USA on the server list",
-  "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
-  "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
-  "👕 Outfits Shop - Press HOME or /shop for FREE outfits",
-  "You can spend your 💰 money in our 👕 Shop! Press HOME",
-  "👕 Did you lose your outfits? Claim them at our /shop",
-  "👕 Did you lose your outfits? Claim them at our /shop",
+  "🙏 Support & Donate on ^2https://beta.gungame.store^7",
+  "👑 Get EXCLUSIVE OUTFITS! ^2https://beta.gungame.store^7",
+  "Our other servers #2 (EU) and #3 (USA) are on the server list",
+  "👕 Outfits Shop - Press HOME or ^2/shop^7 for FREE outfits",
+  "You can spend your 💰 money in our 👕 Shop! Press ^2HOME^7",
   "👕 Get new outfits at certain levels in our shop",
-  "👕 Spend your $ in our shop - Press HOME or /shop to open",
-  "👕 Get XP, Currency, Exclusive outfits and more at https://beta.gungame.store!",
-  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
-  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
-  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
-  "👕 Special 20% Discount on EVERYTHING at https://beta.gungame.store",
-  "👕 Don't want to wait in queue? Queue passes for as low as $2.00 https://beta.gungame.store"
+  "👕 Spend your $ in our shop - Press HOME or ^2/shop^7 to open",
+  "🛒 Get XP, Exclusive outfits and more at ^2https://beta.gungame.store^7!",
+  "🛒 Queue passes for as low as $2.00 ^2https://beta.gungame.store^7"
 }
 
 local interval = 5
@@ -70,21 +59,25 @@ local lastMessage = ""
 
 Citizen.CreateThread(
   function()
+    Wait(7000)
     while true do
-      Wait(60000 * interval)
       local periodicMessage = ""
-      while periodicMessage == lastMessage do
-        periodicMessage = periodicMessages[math.random(#periodicMessages)]
+      local index = math.random(#periodicMessages)
+      periodicMessage = periodicMessages[index]
+
+      if periodicMessage and periodicMessage ~= "" then
+        TriggerEvent(
+          "chat:addMessage",
+          {
+            templateId = "periodic",
+            color = {255, 255, 255},
+            multiline = true,
+            args = {periodicMessage, ""}
+          }
+        )
       end
-      TriggerEvent(
-        "chat:addMessage",
-        {
-          color = {197, 179, 88},
-          multiline = true,
-          args = {periodicMessage, ""}
-        }
-      )
       lastMessage = periodicMessage
+      Wait(10000 * interval)
     end
   end
 )
@@ -95,9 +88,10 @@ RegisterCommand(
     TriggerEvent(
       "chat:addMessage",
       {
-        color = {255, 0, 0},
+        templateId = "help",
+        color = {255, 255, 255},
         multiline = true,
-        args = {"💬 Discord - https://discord.gungame.store or Invite Code r5q7MHQ", ""}
+        args = {"🎮 Discord - ^2https://discord.gg/r5q7MHQ^r^7", ""}
       }
     )
   end,
@@ -110,9 +104,10 @@ RegisterCommand(
     TriggerEvent(
       "chat:addMessage",
       {
-        color = {255, 0, 0},
+        templateId = "help",
+        color = {255, 255, 255},
         multiline = true,
-        args = {"🙏 Donate - Keep the server running by donating to https://beta.gungame.store", ""}
+        args = {"🙏 Keep the server running - ^2https://beta.gungame.store^r^7", ""}
       }
     )
   end,
