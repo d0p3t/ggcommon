@@ -77,7 +77,7 @@ Citizen.CreateThread(
         )
       end
       lastMessage = periodicMessage
-      Wait(10000 * interval)
+      Wait(60000 * interval)
     end
   end
 )
