@@ -1,36 +1,24 @@
--- RegisterNetEvent("shop:prompt")
--- AddEventHandler(
---   "shop:prompt",
---   function(result)
---     if result ~= "" then
---       SendNuiMessage(
---         json.encode(
---           {
---             type = "ggtoaster",
---             toasterMessage = result,
---             toasterTop = true,
---             toasterPosition = "center"
---           }
---         )
---       )
---     end
---   end
--- )
 local currentMapName = ""
 
 RegisterNetEvent("onRoundEnded")
-AddEventHandler("onRoundEnded", function()
-  currentMapName = ""
-end)
-
-RegisterNetEvent("mapName")
-AddEventHandler("mapName", function(name)
-  if name ~= nil then
-    currentMapName = name
-  else
+AddEventHandler(
+  "onRoundEnded",
+  function()
     currentMapName = ""
   end
-end)
+)
+
+RegisterNetEvent("mapName")
+AddEventHandler(
+  "mapName",
+  function(name)
+    if name ~= nil then
+      currentMapName = name
+    else
+      currentMapName = ""
+    end
+  end
+)
 
 Citizen.CreateThread(
   function()
@@ -41,11 +29,11 @@ Citizen.CreateThread(
       Wait(0)
       if currentMapName ~= "" then
         SetTextFont(4)
-        SetTextScale(0.3,0.3)
-        SetTextColour(255,255,255,180)
+        SetTextScale(0.3, 0.3)
+        SetTextColour(255, 255, 255, 180)
         BeginTextCommandDisplayText("MAP_NAME_LABEL")
         AddTextComponentSubstringPlayerName(currentMapName)
-        EndTextCommandDisplayText(0.015,0.981)
+        EndTextCommandDisplayText(0.015, 0.981)
       end
     end
   end
