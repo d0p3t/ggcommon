@@ -192,7 +192,7 @@ Citizen.CreateThread(
 	end
 )
 
-Citizen.CreateThrad(
+Citizen.CreateThread(
 	function()
 		while true do
 			Wait(500)

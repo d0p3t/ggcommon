@@ -33,9 +33,7 @@ Citizen.CreateThread(
     SetVehiclePopulationBudget(0.0)
     while true do
       Wait(0)
-      HideHudComponentThisFrame(6)
       HideHudComponentThisFrame(7)
-      HideHudComponentThisFrame(8)
       HideHudComponentThisFrame(9)
 
       if IsPedArmed(Cache.ClientPedId, 6) then

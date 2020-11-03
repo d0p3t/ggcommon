@@ -25,15 +25,10 @@ Citizen.CreateThread(
     Wait(100)
     AddTextEntry("FE_THDR_GTAO", "Gun Game V")
     AddTextEntry("MAP_NAME_LABEL", "Map: ~a~")
-    SetTextColour(255, 255, 255, 180)
-    SetTextFont(4)
-    SetTextScale(0.3, 0.3)
     while true do
       Wait(0)
       if currentMapName ~= "" then
-        --SetTextFont(4)
-        --SetTextScale(0.3, 0.3)
-        --SetTextColour(255, 255, 255, 180)
+        SetTextScale(0.2, 0.2)
         BeginTextCommandDisplayText("MAP_NAME_LABEL")
         AddTextComponentSubstringPlayerName(currentMapName)
         EndTextCommandDisplayText(0.015, 0.981)
