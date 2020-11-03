@@ -9,8 +9,7 @@ url "https://github.com/d0p3t/ggcommon"
 dependency "screenshot-basic"
 
 client_scripts {
-    "client/*.lua",
-    --"client/*.net.dll"
+    "client/*.lua"
 }
 
 server_scripts {
