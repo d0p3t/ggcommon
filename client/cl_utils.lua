@@ -170,3 +170,41 @@ function SendChatMessage(author, text, color)
 		}
 	)
 end
+
+Cache = {}
+Cache.ClientPlayerId = PlayerId()
+Cache.ClientPedId = PlayerPedId()
+Cache.ActivePlayers = {}
+Cache.ActivePlayersData = {}
+Cache.ClientPedCoords = GetEntityCoords(Cache.ClientPedId, false)
+Cache.ClientPedDead = IsEntityDead(Cache.ClientPedId)
+
+Citizen.CreateThread(
+	function()
+		while true do
+			Cache.ClientPlayerId = PlayerId()
+			Cache.ClientPedId = PlayerPedId()
+			Cache.ActivePlayers = GetActivePlayers()
+			Cache.ClientPedCoords = GetEntityCoords(Cache.ClientPedId, false)
+			Cache.ClientPedDead = IsEntityDead(Cache.ClientPedId)
+			Wait(50)
+		end
+	end
+)
+
+Citizen.CreateThrad(
+	function()
+		while true do
+			Wait(500)
+			Cache.ActivePlayersData = {}
+			for _, player in ipairs(Cache.ActivePlayers) do
+				local playerPed = GetPlayerPed(player)
+				Cache.ActivePlayersData[tostring(player)] = {
+					ped = playerPed,
+					coords = GetEntityCoords(playerPed, true),
+					isDead = IsEntityDead(playerPed)
+				}
+			end
+		end
+	end
+)

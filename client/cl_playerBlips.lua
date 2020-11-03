@@ -11,71 +11,52 @@ local function has_value(tab, val)
   return false
 end
 
-local activePlayers = {}
-local playerId = 0
-local myCoords = 0
-local amIDead = false
-
+local waitInterval = 500
 Citizen.CreateThread(
   function()
     while true do
-      activePlayers = GetActivePlayers()
-      playerId = PlayerId()
-      local myPed = PlayerPedId()
-      myCoords = GetEntityCoords(myPed)
-      amIDead = IsEntityDead(myPed)
-      Wait(250)
-    end
-  end
-)
+      Wait(waitInterval)
 
-Citizen.CreateThread(
-  function()
-    while true do
-      Wait(0)
-      -- local blipsActive = {}
-      if not amIDead then
-        for _, player in ipairs(activePlayers) do
-          if player ~= playerId then
-            local ped = GetPlayerPed(player)
-            if ped ~= 0 then
-              local blip = GetBlipFromEntity(ped)
+      if not Cache.ClientPedDead then
+        waitInterval = 0
+        for _, player in ipairs(Cache.ActivePlayers) do
+          if player ~= Cache.ClientPlayerId then
+            local pedData = Cache.ActivePlayersData[tostring(player)]
+            if pedData ~= nil then
+              local ped = pedData.ped
+              if ped ~= 0 then
+                local blip = GetBlipFromEntity(ped)
 
-              if blip < 1 then
-                blip = AddBlipForEntity(ped)
-                SetBlipScale(blip, 0.86)
-                ShowHeadingIndicatorOnBlip(blip, true)
-                SetBlipCategory(blip, 7)
-                SetBlipSprite(blip, 1)
-                SetBlipColour(blip, 6)
-              -- table.insert(createdBlips, blip)
-              end
-
-              -- table.insert(blipsActive, blip)
-              local pedCoords = GetEntityCoords(ped)
-              local distance = #(myCoords - pedCoords)
-              if distance < 10000 then
-                if not IsEntityDead(ped) then
+                if blip < 1 then
+                  blip = AddBlipForEntity(ped)
+                  SetBlipScale(blip, 0.86)
+                  ShowHeadingIndicatorOnBlip(blip, true)
+                  SetBlipCategory(blip, 7)
                   SetBlipSprite(blip, 1)
                   SetBlipColour(blip, 6)
-                else
-                  SetBlipSprite(blip, 274)
-                  SetBlipColour(blip, 40)
+                end
+
+                local pedData = Cache.ActivePlayersData[tostring(player)]
+
+                local pedCoords = pedData.coords
+                local distance = #(Cache.ClientPedCoords - pedCoords)
+                if distance < 10000 then
+                  local blipSprite = GetBlipSprite(blip)
+                  if not pedData.isDead and blipSprite ~= 1 then
+                    SetBlipSprite(blip, 1)
+                    SetBlipColour(blip, 6)
+                  else
+                    SetBlipSprite(blip, 274)
+                    SetBlipColour(blip, 40)
+                  end
                 end
               end
             end
           end
         end
+      else
+        waitInterval = 250
       end
-
-      -- for _, blip in ipairs(createdBlips) do
-      --   if not has_value(blipsActive, blip) then
-      --     createdBlips[_] = nil
-      --     if DoesBlipExist(blip) then
-      --       RemoveBlip(blip)
-      --     end
-      --   end
-      -- end
     end
   end
 )
