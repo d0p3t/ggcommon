@@ -44,13 +44,3 @@ Citizen.CreateThread(
     end
   end
 )
-
-Citizen.CreateThread(
-  function()
-    while true do
-      Wait(1000)
-      SetDeepOceanScaler(0.0)
-      N_0xc54a08c85ae4d410(1.0)
-    end
-  end
-)

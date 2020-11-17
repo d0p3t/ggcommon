@@ -176,27 +176,15 @@ Cache.ClientPlayerId = PlayerId()
 Cache.ClientPedId = PlayerPedId()
 Cache.ActivePlayers = {}
 Cache.ActivePlayersData = {}
-Cache.ClientPedCoords = GetEntityCoords(Cache.ClientPedId, false)
-Cache.ClientPedDead = IsEntityDead(Cache.ClientPedId)
-
-Citizen.CreateThread(
-	function()
-		while true do
-			Cache.ClientPlayerId = PlayerId()
-			Cache.ClientPedId = PlayerPedId()
-			Cache.ActivePlayers = GetActivePlayers()
-			Cache.ClientPedCoords = GetEntityCoords(Cache.ClientPedId, false)
-			Cache.ClientPedDead = IsEntityDead(Cache.ClientPedId)
-			Wait(50)
-		end
-	end
-)
 
 Citizen.CreateThread(
 	function()
 		while true do
 			Wait(500)
+			Cache.ClientPlayerId = PlayerId()
+			Cache.ClientPedId = PlayerPedId()
 			Cache.ActivePlayersData = {}
+			Cache.ActivePlayers = GetActivePlayers()
 			for _, player in ipairs(Cache.ActivePlayers) do
 				local playerPed = GetPlayerPed(player)
 				Cache.ActivePlayersData[tostring(player)] = {

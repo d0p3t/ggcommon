@@ -9,7 +9,7 @@ Citizen.CreateThread(
       Wait(500)
       myPed = Cache.ClientPedId
       myPlayer = Cache.ClientPlayerId
-      myCoords = Cache.ClientPedCoords
+      myCoords = GetEntityCoords(myPed, false)
       for _, player in ipairs(Cache.ActivePlayers) do
         if player ~= myPlayer then
           local playerData = Cache.ActivePlayersData[tostring(player)]

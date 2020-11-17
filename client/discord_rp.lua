@@ -12,7 +12,7 @@ Citizen.CreateThread(
     SetDiscordRichPresenceAssetText("Play Now on FiveM!")
 
     while true do
-      local numPlayers = #Cache.ActivePlayers
+      local numPlayers = #GetActivePlayers()
       SetRichPresence("" .. numPlayers .. "/64 Players")
       SetPlayerTargetingMode(2)
       Citizen.Wait(10000)
