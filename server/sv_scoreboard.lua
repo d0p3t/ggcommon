@@ -540,7 +540,7 @@ AddEventHandler(
 Citizen.CreateThread(
   function()
     while true do
-      Wait(5000)
+      Wait(10000)
       updateScoreboard()
     end
   end
