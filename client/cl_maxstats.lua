@@ -1,3 +1,5 @@
+local stat_set_int = StatSetInt
+
 local stats = {
   `SP0_STAMINA`,
   `SP0_STRENGTH`,
@@ -12,6 +14,6 @@ RegisterNetEvent('spawn')
 AddEventHandler('spawn', function()
   for i = 1, #stats do
     local stat = stats[i]
-    StatSetInt(stat, 100, false)
+    stat_set_int(stat, 100, false)
   end
 end)
