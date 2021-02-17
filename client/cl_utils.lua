@@ -171,9 +171,16 @@ function SendChatMessage(author, text, color)
 	)
 end
 
+local player_id = PlayerId
+local player_ped_id = PlayerPedId
+local get_active_players = GetActivePlayers
+local get_player_ped = GetPlayerPed
+local get_entity_coords = GetEntityCoords
+local is_entity_dead = IsEntityDead
+
 Cache = {}
-Cache.ClientPlayerId = PlayerId()
-Cache.ClientPedId = PlayerPedId()
+Cache.ClientPlayerId = player_id()
+Cache.ClientPedId = player_ped_id()
 Cache.ActivePlayers = {}
 Cache.ActivePlayersData = {}
 
@@ -181,16 +188,16 @@ Citizen.CreateThread(
 	function()
 		while true do
 			Wait(500)
-			Cache.ClientPlayerId = PlayerId()
-			Cache.ClientPedId = PlayerPedId()
+			Cache.ClientPlayerId = player_id()
+			Cache.ClientPedId = player_ped_id()
 			Cache.ActivePlayersData = {}
-			Cache.ActivePlayers = GetActivePlayers()
+			Cache.ActivePlayers = get_active_players()
 			for _, player in ipairs(Cache.ActivePlayers) do
-				local playerPed = GetPlayerPed(player)
+				local playerPed = get_player_ped(player)
 				Cache.ActivePlayersData[tostring(player)] = {
 					ped = playerPed,
-					coords = GetEntityCoords(playerPed, true),
-					isDead = IsEntityDead(playerPed)
+					coords = get_entity_coords(playerPed, true),
+					isDead = is_entity_dead(playerPed)
 				}
 			end
 		end

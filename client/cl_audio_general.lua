@@ -1,14 +1,20 @@
+local request_script_audio_bank = RequestScriptAudioBank
+local has_sound_finished = HasSoundFinished
+local stop_sound = StopSound
+local cancel_music_event = CancelMusicEvent
+local play_sound_frontend = PlaySoundFrontend
+
 Citizen.CreateThread(
   function()
     Wait(0)
     SetAudioFlag("LoadMPData", true)
-    RequestScriptAudioBank("DLC_BIKER/BKR_KQ_01", false)
-    RequestScriptAudioBank("GTAO_FM_Events_Soundset", true)
-    RequestScriptAudioBank("SCRIPT\\RAMPAGE_01", false);
-    RequestScriptAudioBank("SCRIPT\\RAMPAGE_02", false);
-    RequestScriptAudioBank("DLC_AWXM2018/AW_PTB_01", false);
-    RequestScriptAudioBank("DLC_BIKER/BKR_DL_01", false);
-    RequestScriptAudioBank("DLC_BIKER/BKR_DL_02", false);
+    request_script_audio_bank("DLC_BIKER/BKR_KQ_01", false)
+    request_script_audio_bank("GTAO_FM_Events_Soundset", true)
+    request_script_audio_bank("SCRIPT\\RAMPAGE_01", false);
+    request_script_audio_bank("SCRIPT\\RAMPAGE_02", false);
+    request_script_audio_bank("DLC_AWXM2018/AW_PTB_01", false);
+    request_script_audio_bank("DLC_BIKER/BKR_DL_01", false);
+    request_script_audio_bank("DLC_BIKER/BKR_DL_02", false);
   end
 )
 
@@ -16,12 +22,12 @@ RegisterNetEvent("playSound")
 AddEventHandler(
   "playSound",
   function(soundName, soundSet)
-    if (not HasSoundFinished(-1)) then
-      StopSound(-1)
+    if not has_sound_finished(-1) then
+      stop_sound(-1)
     end
 
-    CancelMusicEvent(soundName);
-    PlaySoundFrontend(-1, soundName, soundSet, true)
+    cancel_music_event(soundName);
+    play_sound_frontend(-1, soundName, soundSet, true)
   end
 )
 

@@ -1,15 +1,28 @@
 -- Modified from https://github.com/citizenfx/cfx-server-data/blob/master/resources/%5Bgameplay%5D/playernames/playernames_cl.lua
 local gamerTags = {}
 
+local get_entity_coords = GetEntityCoords
+local create_fake_mp_gamer_tag = CreateFakeMpGamerTag
+local remove_mp_gamer_tag = RemoveMpGamerTag
+local set_mp_gamer_tag_visibility = SetMpGamerTagVisibility
+local set_mp_gamer_tag_colour = SetMpGamerTagColour
+local set_mp_gamer_tag_alpha = SetMpGamerTagAlpha
+local set_mp_gamer_tag_health_bar_colour = SetMpGamerTagHealthBarColour
+local get_player_server_id = GetPlayerServerId
+local get_player_name = GetPlayerName
+local has_entity_clear_los_to_entity = HasEntityClearLosToEntity
+local network_is_player_talking = NetworkIsPlayerTalking
+local is_player_free_aiming_at_entity = IsPlayerFreeAimingAtEntity
+
 Citizen.CreateThread(
   function()
     Wait(5000)
 
     while true do
-      Wait(500)
+      Wait(200)
       myPed = Cache.ClientPedId
       myPlayer = Cache.ClientPlayerId
-      myCoords = GetEntityCoords(myPed, false)
+      myCoords = get_entity_coords(myPed, false)
       for _, player in ipairs(Cache.ActivePlayers) do
         if player ~= myPlayer then
           local playerData = Cache.ActivePlayersData[tostring(player)]
@@ -38,9 +51,9 @@ Citizen.CreateThread(
 
               if not gamerTags[player] then
                 gamerTags[player] = {
-                  tag = CreateFakeMpGamerTag(
+                  tag = create_fake_mp_gamer_tag(
                     ped,
-                    "#" .. tostring(GetPlayerServerId(player)) .. " " .. GetPlayerName(player),
+                    "#" .. tostring(get_player_server_id(player)) .. " " .. get_player_name(player),
                     false,
                     false,
                     "",
@@ -49,40 +62,40 @@ Citizen.CreateThread(
                   ped = ped
                 }
                 local gamerTag = gamerTags[player].tag
-                SetMpGamerTagColour(gamerTag, 0, 0)
-                SetMpGamerTagColour(gamerTag, 2, 18)
-                SetMpGamerTagHealthBarColour(gamerTag, 18)
-                SetMpGamerTagAlpha(gamerTag, 0, 255)
-                SetMpGamerTagAlpha(gamerTag, 2, 255)
-                SetMpGamerTagAlpha(gamerTag, 4, 255)
-                SetMpGamerTagAlpha(gamerTag, 10, 255)
+                set_mp_gamer_tag_colour(gamerTag, 0, 0)
+                set_mp_gamer_tag_colour(gamerTag, 2, 18)
+                set_mp_gamer_tag_health_bar_colour(gamerTag, 18)
+                set_mp_gamer_tag_alpha(gamerTag, 0, 255)
+                set_mp_gamer_tag_alpha(gamerTag, 2, 255)
+                set_mp_gamer_tag_alpha(gamerTag, 4, 255)
+                set_mp_gamer_tag_alpha(gamerTag, 10, 255)
               end
 
               local gamerTag = gamerTags[player].tag
 
-              if distance < 100 and HasEntityClearLosToEntity(myPed, ped, 17) then
-                local isTalking = NetworkIsPlayerTalking(player)
+              if distance < 100 and has_entity_clear_los_to_entity(myPed, ped, 17) then
+                local isTalking = network_is_player_talking(player)
                 local isDead = playerData.isDead
-                local isHealthBarVisible = not isDead and IsPlayerFreeAimingAtEntity(myPlayer, ped)
-                SetMpGamerTagColour(gamerTag, 10, color)
-                SetMpGamerTagColour(gamerTag, 4, color)
-                SetMpGamerTagVisibility(gamerTag, 0, isHealthBarVisible) -- GAMER_NAME
-                SetMpGamerTagVisibility(gamerTag, 2, isHealthBarVisible) -- HEALTH/ARMOR
-                SetMpGamerTagVisibility(gamerTag, 4, isHealthBarVisible and isTalking) -- AUDIO_ICON
+                local isHealthBarVisible = not isDead and is_player_free_aiming_at_entity(myPlayer, ped)
+                set_mp_gamer_tag_colour(gamerTag, 10, color)
+                set_mp_gamer_tag_colour(gamerTag, 4, color)
+                set_mp_gamer_tag_visibility(gamerTag, 0, isHealthBarVisible) -- GAMER_NAME
+                set_mp_gamer_tag_visibility(gamerTag, 2, isHealthBarVisible) -- HEALTH/ARMOR
+                set_mp_gamer_tag_visibility(gamerTag, 4, isHealthBarVisible and isTalking) -- AUDIO_ICON
 
                 if isDonator or isModerator then
-                  SetMpGamerTagVisibility(gamerTag, 10, isHealthBarVisible and (isDonator or isModerator)) -- MP_TAGGED CIRCLE
+                  set_mp_gamer_tag_visibility(gamerTag, 10, isHealthBarVisible and (isDonator or isModerator)) -- MP_TAGGED CIRCLE
                 else
-                  SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
+                  set_mp_gamer_tag_visibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
                 end
               else
-                SetMpGamerTagVisibility(gamerTag, 0, false) -- GAMER_NAME
-                SetMpGamerTagVisibility(gamerTag, 2, false) -- HEALTH/ARMOR
-                SetMpGamerTagVisibility(gamerTag, 4, false) -- AUDIO_ICON
-                SetMpGamerTagVisibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
+                set_mp_gamer_tag_visibility(gamerTag, 0, false) -- GAMER_NAME
+                set_mp_gamer_tag_visibility(gamerTag, 2, false) -- HEALTH/ARMOR
+                set_mp_gamer_tag_visibility(gamerTag, 4, false) -- AUDIO_ICON
+                set_mp_gamer_tag_visibility(gamerTag, 10, false) -- MP_TAGGED CIRCLE
               end
             elseif gamerTags[player] then
-              RemoveMpGamerTag(gamerTags[player].tag)
+              remove_mp_gamer_tag(gamerTags[player].tag)
               gamerTags[player] = nil
             end
           end

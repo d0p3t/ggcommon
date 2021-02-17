@@ -1,10 +1,13 @@
 --[[
   This module has commands that are to be used for general things like forcing a respawn/death.
 ]]
+local set_entity_invincible = SetEntityInvincible
+local set_entity_health = SetEntityHealth
+
 function Respawn()
-  local ped = PlayerPedId()
-  SetEntityInvincible(ped, false)
-  SetEntityHealth(ped, 0)
+  local ped = Cache.ClientPedId
+  set_entity_invincible(ped, false)
+  set_entity_health(ped, 0)
 end
 
 RegisterCommand("suicide", Respawn, false)

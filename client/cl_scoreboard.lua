@@ -2,8 +2,10 @@ Scoreboard = {}
 
 local scoreboard = {}
 
+local get_player_server_id = GetPlayerServerId
+
 function Scoreboard.GetPlayer(playerId)
-  local serverId = GetPlayerServerId(playerId)
+  local serverId = get_player_server_id(playerId)
   local player =
     table.find_if(
     scoreboard,
@@ -21,7 +23,7 @@ end
 -- end
 
 function Scoreboard.GetPlayerRank(playerId)
-  local serverId = GetPlayerServerId(playerId)
+  local serverId = get_player_server_id(playerId)
   local player =
     table.find_if(
     scoreboard,
@@ -39,7 +41,7 @@ end
 -- end
 
 function Scoreboard.GetPlayerKillstreak(playerId)
-  local serverId = GetPlayerServerId(playerId)
+  local serverId = get_player_server_id(playerId)
   local player =
     table.find_if(
     scoreboard,
@@ -235,7 +237,7 @@ function Scoreboard.DisplayThisFrame()
       -- Draw player name
       local isDonator = player.donator
       local playerColor = Color.GetHudFromBlipColor(Color.BLIP_GREY)
-      if player.id == GetPlayerServerId(myPlayerId) then
+      if player.id == get_player_server_id(myPlayerId) then
         playerColor = Color.GetHudFromBlipColor(Color.BLIP_BROWN)
       end
       -- if Player.IsCrewMember(player.id) then
@@ -357,11 +359,14 @@ function Scoreboard.DisplayThisFrame()
   )
 end
 
+local is_control_pressed = IsControlPressed
+local wait = Wait
+
 Citizen.CreateThread(
   function()
     while true do
-      Wait(0)
-      if IsControlPressed(0, 20) then
+      wait(0)
+      if is_control_pressed(0, 20) then
         Scoreboard.DisplayThisFrame()
       end
     end

@@ -16,15 +16,31 @@ local function is_valid_string(value, funcName)
 	return false
 end
 
+local has_streamed_texture_dict_loaded = HasStreamedTextureDictLoaded
+local request_streamed_texture_dict = RequestStreamedTextureDict
+local wait = Wait
+local get_player_name = GetPlayerName 
+local get_player_from_server_id = GetPlayerFromServerId
+local add_text_component_string = AddTextComponentString
+local add_text_component_integer = AddTextComponentInteger
+local add_text_component_float = AddTextComponentFloat
+local begin_text_command_display_help = BeginTextCommandDisplayHelp
+local end_text_command_display_help = EndTextCommandDisplayHelp
+local begin_text_command_display_text = BeginTextCommandDisplayText
+local end_text_command_display_text = EndTextCommandDisplayText
+local set_text_right_justify = SetTextRightJustify
+local set_text_wrap = SetTextWrap
+local get_safe_zone_size = GetSafeZoneSize
+
 function Streaming.RequestStreamedTextureDict(textureDict)
 	if not is_valid_string(textureDict, "RequestStreamedTextureDict") then
 		return
 	end
 
-	if not HasStreamedTextureDictLoaded(textureDict) then
-		RequestStreamedTextureDict(textureDict)
-		while not HasStreamedTextureDictLoaded(textureDict) do
-			Citizen.Wait(0)
+	if not has_streamed_texture_dict_loaded(textureDict) then
+		request_streamed_texture_dict(textureDict)
+		while not has_streamed_texture_dict_loaded(textureDict) do
+			wait(0)
 		end
 	end
 end
@@ -52,7 +68,7 @@ function Gui.GetPlayerName(serverId, color, lowercase)
 			end
 		end
 
-		return color .. "<C>" .. GetPlayerName(GetPlayerFromServerId(serverId)) .. "</C>~w~"
+		return color .. "<C>" .. get_player_name(get_player_from_server_id(serverId)) .. "</C>~w~"
 	end
 end
 
@@ -72,14 +88,14 @@ function Gui.AddText(text)
 			return
 		end
 
-		AddTextComponentString(string.sub(str, i, i + maxStrLength))
+		add_text_component_string(string.sub(str, i, i + maxStrLength))
 	end
 end
 
 function Gui.DisplayHelpText(text)
-	BeginTextCommandDisplayHelp("STRING")
+	begin_text_command_display_help("STRING")
 	Gui.AddText(text)
-	EndTextCommandDisplayHelp(0, 0, 1, -1)
+	end_text_command_display_help(0, 0, 1, -1)
 end
 
 function Gui.DisplayNotification(text, pic, title, subtitle, icon)
@@ -128,19 +144,19 @@ function Gui.SetTextParams(font, color, scale, shadow, outline, center)
 end
 
 function Gui.DrawText(text, position, width)
-	BeginTextCommandDisplayText("STRING")
+	begin_text_command_display_text("STRING")
 	Gui.AddText(text)
 
 	if width then
-		SetTextRightJustify(true)
-		SetTextWrap(position.x - width, position.x)
+		set_text_right_justify(true)
+		set_text_wrap(position.x - width, position.x)
 	end
 
-	EndTextCommandDisplayText(position.x, position.y)
+	end_text_command_display_text(position.x, position.y)
 end
 
 function Gui.DrawTextEntry(entry, position, ...)
-	BeginTextCommandDisplayText(entry)
+	begin_text_command_display_text(entry)
 
 	local params = {...}
 	table.iforeach(
@@ -148,96 +164,24 @@ function Gui.DrawTextEntry(entry, position, ...)
 		function(param)
 			local paramType = type(param)
 			if paramType == "string" then
-				AddTextComponentString(param)
+				add_text_component_string(param)
 			elseif paramType == "number" then
 				if math.is_integer(param) then
-					AddTextComponentInteger(param)
+					add_text_component_integer(param)
 				else
-					AddTextComponentFloat(param, 2)
+					add_text_component_float(param, 2)
 				end
 			end
 		end
 	)
 
-	EndTextCommandDisplayText(position.x, position.y)
+	end_text_command_display_text(position.x, position.y)
 end
 
 function Gui.DrawNumeric(number, position)
 	Gui.DrawTextEntry("NUMBER", position, number)
 end
 
-function Gui.DisplayObjectiveText(text)
-	BeginTextCommandPrint("STRING")
-	Gui.AddText(text)
-	EndTextCommandPrint(1, true)
-end
-
-function Gui.DrawPlaceMarker(x, y, z, radius, r, g, b, a)
-	DrawMarker(1, x, y, z, 0, 0, 0, 0, 0, 0, radius, radius, radius, r, g, b, a, false, nil, nil, false)
-end
-
-function Gui.StartEvent(name, message)
-	PlaySoundFrontend(-1, "MP_5_SECOND_TIMER", "HUD_FRONTEND_DEFAULT_SOUNDSET", true)
-
-	Citizen.CreateThread(
-		function()
-			local scaleform = Scaleform:Request("MIDSIZED_MESSAGE")
-			scaleform:Call("SHOW_SHARD_MIDSIZED_MESSAGE", name .. " has started", message)
-			scaleform:RenderFullscreenTimed(10000)
-			scaleform:Delete()
-		end
-	)
-
-	FlashMinimapDisplay()
-end
-
-function Gui.StartChallenge(name)
-	PlaySoundFrontend(-1, "EVENT_START_TEXT", "GTAO_FM_EVENTS_SOUNDSET", true)
-
-	Citizen.CreateThread(
-		function()
-			local scaleform = Scaleform:Request("MIDSIZED_MESSAGE")
-			scaleform:Call("SHOW_SHARD_MIDSIZED_MESSAGE", name, "")
-			scaleform:RenderFullscreenTimed(10000)
-			scaleform:Delete()
-		end
-	)
-end
-
-function Gui.StartMission(name, message)
-	PlaySoundFrontend(-1, "EVENT_START_TEXT", "GTAO_FM_EVENTS_SOUNDSET", true)
-
-	Citizen.CreateThread(
-		function()
-			local scaleform = Scaleform:Request("MIDSIZED_MESSAGE")
-			scaleform:Call("SHOW_SHARD_MIDSIZED_MESSAGE", name, message or "")
-			scaleform:RenderFullscreenTimed(10000)
-			scaleform:Delete()
-
-			Gui.DisplayHelpText("Other players have been alerted to your activity. They can come after you to earn reward.")
-		end
-	)
-
-	FlashMinimapDisplay()
-end
-
-function Gui.FinishMission(name, success, reason)
-	if success then
-		PlaySoundFrontend(-1, "Mission_Pass_Notify", "DLC_HEISTS_GENERAL_FRONTEND_SOUNDS", true)
-	elseif Player.IsActive() then
-		PlaySoundFrontend(-1, "ScreenFlash", "MissionFailedSounds", true)
-	end
-
-	if not reason then
-		return
-	end
-
-	local status = success and "COMPLETED" or "FAILED"
-	local scaleform = Scaleform:Request("MIDSIZED_MESSAGE")
-	scaleform:Call("SHOW_SHARD_MIDSIZED_MESSAGE", string.upper(name) .. " " .. status, reason)
-	scaleform:RenderFullscreenTimed(7000)
-	scaleform:Delete()
-end
 
 Color = {}
 Color.__index = Color
@@ -304,7 +248,7 @@ SafeZone = {}
 SafeZone.__index = SafeZone
 
 SafeZone.Size = function()
-	return GetSafeZoneSize()
+	return get_safe_zone_size()
 end
 
 SafeZone.Left = function()

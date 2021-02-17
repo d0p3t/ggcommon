@@ -2,6 +2,11 @@ Scoreboard = {}
 
 -- Format: { id, name, cash, kdRatio, kills, deaths }
 local scoreboard = {}
+local lastScoreboard = {}
+
+-- Natives
+local get_player_name = GetPlayerName
+local get_player_identifiers = GetPlayerIdentifiers
 
 local xpTable = {
   [0] = 1,
@@ -343,12 +348,13 @@ local function updateScoreboard()
   end
 
   table.sort(clientScoreboard, sortScoreboard)
-  TriggerClientEvent("gg:updateScoreboard", -1, clientScoreboard)
+  TriggerLatentClientEvent("gg:updateScoreboard", -1, 500, clientScoreboard)
+  -- TriggerClientEvent("gg:updateScoreboard", -1, clientScoreboard)
 end
 
 function Scoreboard.AddPlayer(player, playerStats)
   if not scoreboard[player] then
-    local playerName = GetPlayerName(player)
+    local playerName = get_player_name(player)
 
     if not playerName then
       playerName = ""
@@ -389,7 +395,7 @@ end
 
 function Scoreboard.GetPlayerIdentifier(player)
   return table.find_if(
-    GetPlayerIdentifiers(player),
+    get_player_identifiers(player),
     function(id)
       return string.find(id, "license")
     end
@@ -515,7 +521,7 @@ AddEventHandler(
           id = user.netId,
           moderator = user.moderator,
           donator = user.donator,
-          name = GetPlayerName(user.netId),
+          name = get_player_name(user.netId),
           --cash = user.money,
           kdRatio = calculateKdRatio(user.kills, user.deaths),
           kills = user.kills,

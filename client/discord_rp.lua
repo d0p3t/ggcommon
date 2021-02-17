@@ -1,3 +1,7 @@
+local set_rich_presence = SetRichPresence
+local wait = Wait
+local set_player_targeting_mode = SetPlayerTargetingMode
+
 Citizen.CreateThread(
   function()
     local appId = GetConvar("gg_discord_app_id", "")
@@ -12,10 +16,10 @@ Citizen.CreateThread(
     SetDiscordRichPresenceAssetText("Play Now on FiveM!")
 
     while true do
-      local numPlayers = #GetActivePlayers()
-      SetRichPresence("" .. numPlayers .. "/64 Players")
-      SetPlayerTargetingMode(2)
-      Citizen.Wait(10000)
+      local numPlayers = #Cache.ActivePlayers
+      set_rich_presence("" .. numPlayers .. "/64 Players")
+      set_player_targeting_mode(2)
+      wait(10000)
     end
   end
 )

@@ -1,5 +1,10 @@
 local currentMapName = ""
 
+local set_text_scale = SetTextScale
+local begin_text_command_display_text = BeginTextCommandDisplayText
+local add_text_component_substring_player_name = AddTextComponentSubstringPlayerName
+local end_text_command_display_text = EndTextCommandDisplayText
+
 RegisterNetEvent("onRoundEnded")
 AddEventHandler(
   "onRoundEnded",
@@ -28,10 +33,10 @@ Citizen.CreateThread(
     while true do
       Wait(0)
       if currentMapName ~= "" then
-        SetTextScale(0.2, 0.2)
-        BeginTextCommandDisplayText("MAP_NAME_LABEL")
-        AddTextComponentSubstringPlayerName(currentMapName)
-        EndTextCommandDisplayText(0.015, 0.981)
+        set_text_scale(0.2, 0.2)
+        begin_text_command_display_text("MAP_NAME_LABEL")
+        add_text_component_substring_player_name(currentMapName)
+        end_text_command_display_text(0.015, 0.981)
       end
     end
   end

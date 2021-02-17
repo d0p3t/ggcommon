@@ -16,9 +16,11 @@ local validTypes = {
   ["wickedsick"] = 11
 }
 
+local network_is_session_started = NetworkIsSessionStarted
+
 Citizen.CreateThread(
   function()
-    while not NetworkIsSessionStarted() do
+    while not network_is_session_started() do
       Wait(0)
     end
 

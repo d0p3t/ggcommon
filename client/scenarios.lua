@@ -54,6 +54,8 @@ local Scenarios = {
 
 local FirstSpawn = true
 
+local set_scenario_type_enabled = SetScenarioTypeEnabled
+
 RegisterNetEvent("spawn")
 AddEventHandler(
     "spawn",
@@ -62,7 +64,7 @@ AddEventHandler(
             local count = 0
             for i = 1, #Scenarios do
                 local scenario = Scenarios[i]
-                SetScenarioTypeEnabled(scenario, false)
+                set_scenario_type_enabled(scenario, false)
                 count = count + 1
             end
 
