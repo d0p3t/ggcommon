@@ -18,7 +18,6 @@ end
 
 local has_streamed_texture_dict_loaded = HasStreamedTextureDictLoaded
 local request_streamed_texture_dict = RequestStreamedTextureDict
-local wait = Wait
 local get_player_name = GetPlayerName 
 local get_player_from_server_id = GetPlayerFromServerId
 local add_text_component_string = AddTextComponentString
@@ -40,7 +39,7 @@ function Streaming.RequestStreamedTextureDict(textureDict)
 	if not has_streamed_texture_dict_loaded(textureDict) then
 		request_streamed_texture_dict(textureDict)
 		while not has_streamed_texture_dict_loaded(textureDict) do
-			wait(0)
+			Wait(0)
 		end
 	end
 end

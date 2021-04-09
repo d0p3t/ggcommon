@@ -3,7 +3,6 @@ local FirstSpawn = true
 local hide_hud_component_this_frame = HideHudComponentThisFrame
 local disable_control_action = DisableControlAction
 local is_ped_armed = IsPedArmed
-local wait = Wait
 
 local network_set_friendly_fire_option = NetworkSetFriendlyFireOption
 local set_can_attack_friendly = SetCanAttackFriendly
@@ -42,11 +41,11 @@ AddEventHandler(
 
 Citizen.CreateThread(
   function()
-    wait(50)
+    Wait(50)
     SetPedPopulationBudget(0.0)
     SetVehiclePopulationBudget(0.0)
     while true do
-      wait(0)
+      Wait(0)
       hide_hud_component_this_frame(7)
       hide_hud_component_this_frame(9)
 

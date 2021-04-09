@@ -1,5 +1,4 @@
 local set_rich_presence = SetRichPresence
-local wait = Wait
 local set_player_targeting_mode = SetPlayerTargetingMode
 
 Citizen.CreateThread(
@@ -19,7 +18,7 @@ Citizen.CreateThread(
       local numPlayers = #Cache.ActivePlayers
       set_rich_presence("" .. numPlayers .. "/64 Players")
       set_player_targeting_mode(2)
-      wait(10000)
+      Wait(10000)
     end
   end
 )

@@ -360,12 +360,11 @@ function Scoreboard.DisplayThisFrame()
 end
 
 local is_control_pressed = IsControlPressed
-local wait = Wait
 
 Citizen.CreateThread(
   function()
     while true do
-      wait(0)
+      Wait(0)
       if is_control_pressed(0, 20) then
         Scoreboard.DisplayThisFrame()
       end
