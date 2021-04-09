@@ -348,7 +348,7 @@ local function updateScoreboard()
   end
 
   table.sort(clientScoreboard, sortScoreboard)
-  TriggerLatentClientEvent("gg:updateScoreboard", -1, 500, clientScoreboard)
+  TriggerLatentClientEvent("gg:updateScoreboard", -1, 100, clientScoreboard)
   -- TriggerClientEvent("gg:updateScoreboard", -1, clientScoreboard)
 end
 
