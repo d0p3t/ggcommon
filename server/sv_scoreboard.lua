@@ -348,7 +348,17 @@ local function updateScoreboard()
   end
 
   table.sort(clientScoreboard, sortScoreboard)
-  TriggerLatentClientEvent("gg:updateScoreboard", -1, 100, clientScoreboard)
+
+  local limitedScoreboard = {}
+  local amount = 1
+  for _, player in pairs(clientScoreboard) do
+    if amount <= 32 then
+      table.insert(limitedScoreboard, player);
+    end
+    amount = amount + 1
+  end
+
+  TriggerLatentClientEvent("gg:updateScoreboard", -1, 100, limitedScoreboard)
   -- TriggerClientEvent("gg:updateScoreboard", -1, clientScoreboard)
 end
 
