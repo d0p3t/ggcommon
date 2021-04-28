@@ -13,6 +13,8 @@ Citizen.CreateThread(
     SetDiscordAppId(appId)
     SetDiscordRichPresenceAsset("big")
     SetDiscordRichPresenceAssetText("Play Now on FiveM!")
+    SetDiscordRichPresenceAction(0, "Play", "fivem://connect/wz96vy")
+    SetDiscordRichPresenceAction(1, "Discord", "https://discord.gg/r5q7MHQ")
 
     while true do
       local numPlayers = #Cache.ActivePlayers
