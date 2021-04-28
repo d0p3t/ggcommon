@@ -10,10 +10,18 @@ local stats = {
   `SP0_STEALTH_ABILITY`
 }
 
-RegisterNetEvent('spawn')
-AddEventHandler('spawn', function()
-  for i = 1, #stats do
-    local stat = stats[i]
-    stat_set_int(stat, 100, false)
-  end
-end)
+local firstSpawn = true
+
+RegisterNetEvent("spawn")
+local spawnEvent = AddEventHandler(
+    "spawn",
+    function()
+        if firstSpawn then
+            for i = 1, #stats do
+                stat_set_int(stats[i], 100, false)
+            end
+            firstSpawn = false
+            RemoveEventHandler(spawnEvent)
+        end
+    end
+)

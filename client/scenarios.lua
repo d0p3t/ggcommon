@@ -52,15 +52,15 @@ local Scenarios = {
     "WORLD_VEHICLE_DISTANT_EMPTY_GROUND"
 }
 
-local FirstSpawn = true
+local firstSpawn = true
 
 local set_scenario_type_enabled = SetScenarioTypeEnabled
 
 RegisterNetEvent("spawn")
-AddEventHandler(
+local spawnEvent = AddEventHandler(
     "spawn",
     function()
-        if (FirstSpawn) then
+        if (firstSpawn) then
             local count = 0
             for i = 1, #Scenarios do
                 local scenario = Scenarios[i]
@@ -70,7 +70,8 @@ AddEventHandler(
 
             print("[Common] Disabled " .. count .. " scenarios.")
 
-            FirstSpawn = false
+            firstSpawn = false
+            RemoveEventHandler(spawnEvent)
         end
     end
 )
