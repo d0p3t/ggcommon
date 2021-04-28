@@ -31,7 +31,7 @@ Citizen.CreateThread(
             local pedCoords = playerData.coords
             local distance = #(pedCoords - myCoords)
 
-            if distance < 500 then
+            if distance < 200 then
               local isDonator = false
               local isModerator = false
               -- only continue if this player is on the scoreboard already
