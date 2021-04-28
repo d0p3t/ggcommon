@@ -1,4 +1,4 @@
-local FirstSpawn = true
+local firstSpawn = true
 
 local hide_hud_component_this_frame = HideHudComponentThisFrame
 local disable_control_action = DisableControlAction
@@ -20,7 +20,7 @@ AddEventHandler(
     network_set_friendly_fire_option(true)
     set_can_attack_friendly(Cache.ClientPedId, true, true)
 
-    if (FirstSpawn) then
+    if (firstSpawn) then
       network_set_talker_proximity(30.0)
       set_garbage_trucks(false)
       set_random_boats(false)
@@ -34,7 +34,7 @@ AddEventHandler(
 
       print("[Common] Disabled dispatch services, garbage trucks, boats, and set talker proximity (30m radius).")
 
-      FirstSpawn = false
+      firstSpawn = false
     end
   end
 )
