@@ -3,11 +3,14 @@
 ]]
 local set_entity_invincible = SetEntityInvincible
 local set_entity_health = SetEntityHealth
+local is_entity_dead = IsEntityDead
 
 function Respawn()
     local ped = Cache.ClientPedId
-    set_entity_invincible(ped, false)
-    set_entity_health(ped, 0)
+    if not is_entity_dead(ped) then
+        set_entity_invincible(ped, false)
+        set_entity_health(ped, 0)
+    end
 end
 
 RegisterCommand("suicide", Respawn, false)
