@@ -46,37 +46,6 @@ end
 
 Gui = {}
 
-function Gui.GetPlayerName(serverId, color, lowercase)
-	if Player.ServerId() == serverId then
-		if lowercase then
-			return "you"
-		else
-			return "You"
-		end
-	else
-		if not color then
-			if Player.IsCrewMember(serverId) then
-				color = "~b~"
-			elseif
-				serverId == World.ChallengingPlayer or serverId == World.BeastPlayer or serverId == World.HotPropertyPlayer or
-					MissionManager.IsPlayerOnMission(serverId)
-			 then
-				color = "~r~"
-			else
-				color = "~w~"
-			end
-		end
-
-		return color .. "<C>" .. get_player_name(get_player_from_server_id(serverId)) .. "</C>~w~"
-	end
-end
-
-function Gui.OpenMenu(id)
-	if not WarMenu.IsAnyMenuOpened() and Player.IsActive() then
-		WarMenu.OpenMenu(id)
-	end
-end
-
 function Gui.AddText(text)
 	local str = tostring(text)
 	local strLen = string.len(str)
@@ -95,29 +64,6 @@ function Gui.DisplayHelpText(text)
 	begin_text_command_display_help("STRING")
 	Gui.AddText(text)
 	end_text_command_display_help(0, 0, 1, -1)
-end
-
-function Gui.DisplayNotification(text, pic, title, subtitle, icon)
-	BeginTextCommandThefeedPost("STRING")
-	Gui.AddText(text)
-
-	if pic then
-		EndTextCommandThefeedPostMessagetext(pic, pic, false, icon or 4, title or "", subtitle or "")
-	else
-		EndTextCommandThefeedPostTicker(true, true)
-	end
-end
-
-function Gui.DisplayPersonalNotification(text, pic, title, subtitle, icon)
-	BeginTextCommandThefeedPost("STRING")
-	Gui.AddText(text)
-	ThefeedNextPostBackgroundColor(200)
-
-	if pic then
-		EndTextCommandThefeedPostMessagetext(pic, pic, false, icon or 4, title or "", subtitle or "")
-	else
-		EndTextCommandThefeedPostTicker(true, true)
-	end
 end
 
 function Gui.DrawRect(position, width, height, color)
